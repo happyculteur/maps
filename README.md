@@ -1,4 +1,5 @@
 # [HappyCulteur](https://www.happyculteur.co/) &middot;
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c116797ba4e9482481a234af428d3c0e)](https://app.codacy.com/app/happyculteur/maps?utm_source=github.com&utm_medium=referral&utm_content=happyculteur/maps&utm_campaign=badger)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/happyculteur/maps/blob/master/LICENSE)
 [![Coverage Status](https://coveralls.io/repos/github/happyculteur/maps/badge.svg?branch=master)](https://coveralls.io/github/happyculteur/maps?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
