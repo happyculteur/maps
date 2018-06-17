@@ -1,4 +1,5 @@
 # [HappyCulteur](https://www.happyculteur.co/) &middot; ![Twitter Follow](https://img.shields.io/twitter/follow/happyculteur_.svg?style=social&label=Follow)
+[![CLA assistant](https://cla-assistant.io/readme/badge/happyculteur/maps)](https://cla-assistant.io/happyculteur/maps)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/happyculteur/maps/blob/master/LICENSE.md)
 [![Coverage Status](https://coveralls.io/repos/github/happyculteur/maps/badge.svg?branch=master)](https://coveralls.io/github/happyculteur/maps?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5abf1e5b493140b79797ccc307fe9b3c)](https://www.codacy.com/app/happyculteur/maps?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=happyculteur/maps&amp;utm_campaign=Badge_Grade)
