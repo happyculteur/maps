@@ -21,6 +21,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Support](#support)
 - [Utils](#utils)
 - [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
 
 ## Updating to New Releases
 
@@ -54,3 +55,7 @@ We commit to keeping the breaking changes minimal so you can upgrade `react-scri
 ## Troubleshooting
 
 [Here](https://github.com/happyculteur/maps/blob/master/docs/TROUBLESHOOT.md)
+
+## Contributing
+
+[Here](https://github.com/happyculteur/maps/blob/master/docs/CONTRIBUTING.md)
