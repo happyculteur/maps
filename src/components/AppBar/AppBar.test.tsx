@@ -15,6 +15,6 @@ describe("AppBar component", () => {
   it("renders correctly", () => {
     const wrapper = shallow(<AppBar {...minProps} />);
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.debug()).toMatchSnapshot();
   });
 });
