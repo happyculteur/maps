@@ -15,7 +15,7 @@ install:
   - npm install
 script:
   - npm run build
-  - aws s3 sync . s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
+  - aws s3 sync ./build/ s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
 after_success:
   - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release && chmod +x ~/semantic-release
   - ~/semantic-release -update package.json
