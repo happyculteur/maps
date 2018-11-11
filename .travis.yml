@@ -1,0 +1,24 @@
+language: node_js
+env:
+  global:
+    - MAX-AGE=300
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - '8'
+install:
+  - apt-get install python3 python-pip3
+  - pip3 install --upgrade awscli
+script:
+  - npm run build
+  - aws s3 sync . s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
+after_success:
+  - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release && chmod +x ~/semantic-release
+  - ~/semantic-release -update package.json
+  - ~/semantic-release
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
