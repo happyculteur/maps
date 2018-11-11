@@ -10,8 +10,8 @@ notifications:
 node_js:
   - '8'
 install:
-  - apt-get install python3 python-pip3
-  - pip3 install --upgrade awscli
+  - sudo apt-get install python3 python-pip3
+  - sudo pip3 install --upgrade awscli
 script:
   - npm run build
   - aws s3 sync . s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
