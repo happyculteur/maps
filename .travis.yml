@@ -12,6 +12,7 @@ node_js:
 install:
   - sudo apt-get install python3 python3-pip
   - sudo pip3 install --upgrade awscli
+  - npm install
 script:
   - npm run build
   - aws s3 sync . s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
