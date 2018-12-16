@@ -1,25 +1,32 @@
 language: node_js
 env:
   global:
-    - MAX-AGE=300
+  - MAX-AGE=300
 cache:
   directories:
-    - node_modules
+  - node_modules
 notifications:
   email: false
+  slack:
+    rooms:
+      secure: LpupeeVI2/yIFWCnzlgieWeE43GVUlEpetuFRMUhlsqNePd5hgDiRGfd7wHgusV0kt/KdDl2kx/5FnE5ck30RrE1gaFY+HQybeQ9LXpavuZjE8vnneYckfUQX/i5LYpbgF82E1Gb4QulbvseTtLals1zPTd6YXUgowCYLUDPTfOZrOa0hEyw46uLePbhkx3dljxnCNvJBqePhg9+A5lhgRllcoiCwW8mpKiCCzXiIkAkIjFgND75101oaSjEudRB6EqKjdDgDZCal4IKPdFAJOr5sKLP6DWaZEt8fhXQZDoVXEvgWFwc3opYwo9emjgthTljNjpzwG+zlLU3zcqpmC5LlWI1LShQWvBi5BFORJuwg9yDak7qi7mE8ZF43D1pwDbck9rpCVNp4/9oItqO0NeU7St7TtzLwHV4YhZp6f+4KHGyb1+1+zllnj2dn9HjSGIDkUz+5EKJ2JMNpNE05t8pOymAPll8q0srsp7+mAwWNzl45jX6fjyg0w8mZVlW63sjeiLmowEOhbeDpEdn1kC0BFoyk4rSEFmFDm7KIFXHb+hlCrWJlE97c2FwF+ANNc4bv6dwIGfTvEgF5Fjvc9pK6B5wsKbSKKKFKDkqcxHG8+57kPD7Jj2p/d1MGw06EPv6yFAp8mxUDCSyUIKs16BgaO/70orgYUMY02sqTBI=
+    on_success: always
+    on_failure: always
 node_js:
-  - '8'
+- '8'
 install:
-  - sudo apt-get install python3 python3-pip
-  - sudo pip3 install --upgrade awscli
-  - npm install
+- sudo apt-get install python3 python3-pip
+- sudo pip3 install --upgrade awscli
+- npm install
 script:
-  - npm run build
-  - aws s3 sync ./build/ s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
+- npm run build
+- aws s3 sync ./build/ s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude
+  ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
 after_success:
-  - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release && chmod +x ~/semantic-release
-  - ~/semantic-release -update package.json
-  - ~/semantic-release
+- curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release
+  && chmod +x ~/semantic-release
+- "~/semantic-release -update package.json"
+- "~/semantic-release"
 branches:
   except:
-    - /^v\d+\.\d+\.\d+$/
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
