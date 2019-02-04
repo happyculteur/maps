@@ -14,14 +14,15 @@ notifications:
     on_failure: always
 node_js:
 - '8'
-install:
-- sudo apt-get install python3 python3-pip
-- sudo pip3 install --upgrade awscli
-- npm install
-script:
-- npm run build
-- aws s3 sync ./build/ s3://$TRAVIS_BRANCH.app.happyculteur.co --exclude ".git" --exclude
-  ".travis.yml" --cache-control max-age=${MAX_AGE} --delete
+deploy:
+  - provider: script
+    script: bash travis-scripts/sync.sh dev
+    on:
+      branch: dev
+  - provider: script
+    script: bash travis-scripts/sync.sh production
+    on:
+      branch: master
 after_success:
 - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release
   && chmod +x ~/semantic-release
