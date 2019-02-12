@@ -18,11 +18,11 @@ deploy:
   - provider: script
     script: bash travis-scripts/sync.sh dev
     on:
-      branch: dev
+      branches: dev
   - provider: script
     script: bash travis-scripts/sync.sh production
     on:
-      branch: master
+      branches: master
 after_success:
 - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release
   && chmod +x ~/semantic-release
