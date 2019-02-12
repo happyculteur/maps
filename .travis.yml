@@ -28,6 +28,6 @@ after_success:
   && chmod +x ~/semantic-release
 - "~/semantic-release -update package.json"
 - "~/semantic-release"
-branches:
-  except:
-  - "/^v\\d+\\.\\d+\\.\\d+$/"
+#branches:
+#  except:
+#  - "/^v\\d+\\.\\d+\\.\\d+$/"
