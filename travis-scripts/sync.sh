@@ -2,8 +2,6 @@
 
 $ENV=$1
 
-sudo apt-get install python3 python3-pip
-sudo pip3 install --upgrade awscli
 npm install
 npm run build
 

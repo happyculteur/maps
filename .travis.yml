@@ -14,6 +14,12 @@ notifications:
     on_failure: always
 node_js:
 - '8'
+before_install:
+  - sudo apt-get install python3-pip
+  - sudo pip3 install --upgrade awscli
+addons:
+  apt:
+    update: true
 deploy:
   - provider: script
     script: bash travis-scripts/sync.sh dev
