@@ -1,52 +1,40 @@
+import * as React from "react";
 import { default as MuiAppBar } from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import {
-  createStyles,
-  Theme,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
-import { TranslationFunction } from "i18next";
-import * as React from "react";
-import { translate } from "react-i18next";
+import { makeStyles } from "@material-ui/styles";
+import { useTranslation } from "react-i18next";
 
-const styles = (theme: Theme) =>
-  createStyles({
-    flex: {
-      flex: 1
+const useStyles = makeStyles(theme => ({
+  flex: {
+    flex: 1
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  root: {
+    flexGrow: 1
+  },
+  surveyButton: {
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.dark
     },
-    menuButton: {
-      marginLeft: -12,
-      marginRight: 20
-    },
-    root: {
-      flexGrow: 1
-    },
-    surveyButton: {
-      "&:hover": {
-        backgroundColor: theme.palette.secondary.dark
-      },
-      backgroundColor: theme.palette.secondary.main,
-      marginLeft: "auto"
-    }
-  });
+    backgroundColor: theme.palette.secondary.main,
+    marginLeft: "auto",
+    color: theme.palette.primary.light
+  }
+}));
 
-interface IAppBarInjectedProps {
-  t?: TranslationFunction;
-}
+export const AppBar: React.SFC = props => {
+  const classes = useStyles();
+  const i18n = useTranslation();
 
-export interface IAppBarProps
-  extends WithStyles<typeof styles>,
-    IAppBarInjectedProps {}
-
-export const AppBar: React.SFC<IAppBarProps> = props => {
-  const { classes, t = (sentence: any) => sentence } = props;
   return (
     <div className={classes.root}>
-      <MuiAppBar position="static">
+      <MuiAppBar position="static" color="default">
         <Toolbar>
           <IconButton
             className={classes.menuButton}
@@ -61,7 +49,7 @@ export const AppBar: React.SFC<IAppBarProps> = props => {
             href={process.env.REACT_APP_HAPPYCULTEUR_SURVEY}
             data-e2e="SurveyButton"
           >
-            {t("Take the survey!")}
+            {i18n.t("Take the survey!")}
           </Button>
         </Toolbar>
       </MuiAppBar>
@@ -69,9 +57,4 @@ export const AppBar: React.SFC<IAppBarProps> = props => {
   );
 };
 
-const AppBarWithTranslation = translate("translations")(AppBar);
-const AppBarWithTranslationAndStyles = withStyles(styles)(
-  AppBarWithTranslation
-);
-
-export default AppBarWithTranslationAndStyles;
+export default AppBar;

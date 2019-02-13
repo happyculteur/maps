@@ -1,1 +1,1 @@
-export { default as createDefaultTheme } from "./materialUi";
+export { default as defaultTheme } from "./materialUi";

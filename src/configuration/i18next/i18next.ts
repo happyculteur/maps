@@ -1,61 +1,40 @@
-import * as i18next from 'i18next';
-// import Backend from 'i18next-chained-backend';
-// import LocalStorageBackend from 'i18next-localstorage-backend';
-import * as LngDetector from 'i18next-browser-languagedetector';
+import i18next from "i18next";
+import { initReactI18next } from "react-i18next";
+import LngDetector from "i18next-browser-languagedetector";
+
+const languageDetectorOptions = {
+  order: ["localStorage", "navigator"],
+  lookupLocalStorage: "happyculteur_i18nextLng",
+  caches: ["localStorage"]
+};
 
 export const configI18n: i18next.InitOptions = {
-  debug: process.env.NODE_ENV !== 'production',
-  defaultNS: 'translations',
-  detection: {
-    caches: ['localStorage', 'cookie'],
-    cookieDomain: 'happyculteur_domain',
-    cookieMinutes: 10,
-    htmlTag: document.documentElement,
-    lookupCookie: 'i18next',
-    lookupFromPathIndex: 0,
-    lookupFromSubdomainIndex: 0,
-    lookupLocalStorage: 'i18nextLng',
-    lookupQuerystring: 'lng',
-    order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'path', 'subdomain']
-  },
-  fallbackLng: 'en',
+  debug: process.env.NODE_ENV !== "production",
+  lng: "fr",
+  fallbackLng: "fr",
   keySeparator: false, // key === content
-  load: 'languageOnly',
-  lowerCaseLng: true,
-  ns: ['translations'],
-  preload: ['fr', 'en'],
-  // TODO: Wait or PR @types
-  // backend: {
-  //   backends: [ LocalStorageBackend ],
-  //   backendOptions: [{
-  //     prefix: 'i18next_res_',
-  //     expirationTime: 7*24*60*60*1000,
-  //     versions: {
-  //       fr: 'v0.1', en: 'v0.1'
-  //     }
-  //   }]
-  // },
-  react: {
-    nsMode: 'default',
-    wait: false
-  },
+  ns: ["translations"],
+  load: "languageOnly",
+  defaultNS: "translations",
+  preload: ["fr", "en"],
   resources: {
     en: {
       translations: {
-        ...require('../locales/en/translations.json')
+        ...require("../locales/en/translations.json")
       }
     },
     fr: {
       translations: {
-        ...require('../locales/fr/translations.json')
+        ...require("../locales/fr/translations.json")
       }
     }
-  }
+  },
+  detection: languageDetectorOptions
 };
 
 const i18Instance = i18next
   .use(LngDetector)
-  // .use(Backend)
+  .use(initReactI18next)
   .init(configI18n);
 
 export default i18Instance;
