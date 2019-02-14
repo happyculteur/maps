@@ -1,10 +1,10 @@
-import * as React from "react";
 import { default as MuiAppBar } from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/styles";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
@@ -23,8 +23,8 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.secondary.dark
     },
     backgroundColor: theme.palette.secondary.main,
-    marginLeft: "auto",
-    color: theme.palette.primary.light
+    color: theme.palette.primary.light,
+    marginLeft: "auto"
   }
 }));
 

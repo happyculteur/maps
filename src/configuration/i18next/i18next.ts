@@ -1,21 +1,22 @@
 import i18next from "i18next";
-import { initReactI18next } from "react-i18next";
 import LngDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
 
 const languageDetectorOptions = {
-  order: ["localStorage", "navigator"],
+  caches: ["localStorage"],
   lookupLocalStorage: "happyculteur_i18nextLng",
-  caches: ["localStorage"]
+  order: ["localStorage", "navigator"]
 };
 
 export const configI18n: i18next.InitOptions = {
   debug: process.env.NODE_ENV !== "production",
-  lng: "fr",
+  defaultNS: "translations",
+  detection: languageDetectorOptions,
   fallbackLng: "fr",
   keySeparator: false, // key === content
-  ns: ["translations"],
+  lng: "fr",
   load: "languageOnly",
-  defaultNS: "translations",
+  ns: ["translations"],
   preload: ["fr", "en"],
   resources: {
     en: {
@@ -28,8 +29,7 @@ export const configI18n: i18next.InitOptions = {
         ...require("../locales/fr/translations.json")
       }
     }
-  },
-  detection: languageDetectorOptions
+  }
 };
 
 const i18Instance = i18next
