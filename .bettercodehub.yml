@@ -1,0 +1,11 @@
+languages:
+- name: typescript
+  production:
+    exclude:
+      - .*\.spec\.ts
+      - .*\.e2e\.ts
+  test:
+    exclude:
+      - .*\.spec\.ts
+    include:
+      - .*\.ts
