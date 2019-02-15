@@ -2,10 +2,10 @@ languages:
 - name: typescript
   production:
     exclude:
-      - .*\.spec\.ts
+      - .*\.test\.ts
       - .*\.e2e\.ts
   test:
     exclude:
-      - .*\.spec\.ts
+      - .*\.test\.ts
     include:
       - .*\.ts
