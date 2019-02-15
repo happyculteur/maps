@@ -1,5 +1,4 @@
-import { shallow } from "enzyme";
-import * as React from "react";
+import { shallowWithTheme } from "../../helper/test";
 import AppBar from "./AppBar";
 
 describe("AppBar component", () => {
@@ -13,7 +12,7 @@ describe("AppBar component", () => {
   });
 
   it("renders correctly", () => {
-    const wrapper = shallow(<AppBar {...minProps} />);
+    const wrapper = shallowWithTheme(AppBar, minProps);
 
     expect(wrapper.debug()).toMatchSnapshot();
   });

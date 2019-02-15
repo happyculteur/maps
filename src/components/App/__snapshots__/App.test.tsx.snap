@@ -1,7 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders without crashing 1`] = `
-"<div>
-  <WithStyles(Translate(Component)) />
-</div>"
+"<ThemeProvider theme={{...}}>
+  <WithStyles(CssBaseline) />
+  <div className=\\"application\\">
+    <HelmetWrapper defer={true} encodeSpecialCharacters={true}>
+      <meta charSet=\\"utf-8\\" />
+      <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, shrink-to-fit=no\\" />
+      <meta name=\\"theme-color\\" content=\\"#000000\\" />
+      <link rel=\\"manifest\\" href=\\"/manifest.json\\" />
+      <link rel=\\"shortcut icon\\" href=\\"/favicon.ico\\" />
+      <link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Roboto:300,400,500\\" />
+      <link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/icon?family=Material+Icons\\" />
+      <title>
+        Happyculteur Maps
+      </title>
+    </HelmetWrapper>
+    <AppBar />
+  </div>
+</ThemeProvider>"
 `;
