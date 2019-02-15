@@ -31,7 +31,7 @@
     "e2e": "npm-run-all -p start cypress:open",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
-    "tslint": "tslint -c tslint.json  'src/**/*.{ts,tsx}'"
+    "tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "husky": {
     "hooks": {
@@ -41,6 +41,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
+      "tslint --fix",
       "prettier --parser typescript --write",
       "git add"
     ]
