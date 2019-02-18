@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/styles";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
   flex: {
     flex: 1
   },
