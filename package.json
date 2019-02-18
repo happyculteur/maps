@@ -32,7 +32,17 @@
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
-    "test-with-coverage": "react-scripts test --env=jsdom --coverage && cat ./coverage/lcov.info | codacy-coverage"
+    "test-with-coverage": "react-scripts test --env=jsdom --coverage && cat ./coverage/lcov.info | codacy-coverage",
+    "test:debug": "react-scripts --inspect-brk test --env=jsdom --runInBand --no-cache --no-watch "
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.tsx",
+      "!src/**/index.ts",
+      "!src/**/registerServiceWorker.ts",
+      "!src/**/*.e2e.{ts,tsx}"
+    ]
   },
   "husky": {
     "hooks": {
