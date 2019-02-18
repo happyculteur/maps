@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AppBar component renders correctly 1`] = `
-"<ContextProvider value={{...}}>
-  <AppBar classes={{...}} t={[Function: t]} />
-</ContextProvider>"
+exports[`AppBar component on shallow rendering should renders without crashing 1`] = `
+"<div className={[undefined]}>
+  <WithStyles(AppBar) position=\\"static\\" color=\\"default\\">
+    <WithStyles(Toolbar)>
+      <WithStyles(IconButton) className={[undefined]} color=\\"inherit\\" aria-label=\\"Menu\\">
+        <pure(MenuIcon) />
+      </WithStyles(IconButton)>
+      <WithStyles(Button) className={[undefined]} color=\\"primary\\" href={[undefined]} data-e2e=\\"SurveyButton\\">
+        Take the survey!
+      </WithStyles(Button)>
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+</div>"
 `;
