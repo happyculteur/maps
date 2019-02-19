@@ -1,51 +1,80 @@
-import { default as MuiAppBar } from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Toolbar from "@material-ui/core/Toolbar";
-import MenuIcon from "@material-ui/icons/Menu";
+import {
+  AppBar as MuiAppBar,
+  Button,
+  IconButton,
+  Toolbar
+} from "@material-ui/core";
+import GridOn from "@material-ui/icons/GridOn";
+import Map from "@material-ui/icons/Map";
+import VerticalSplit from "@material-ui/icons/VerticalSplit";
 import { makeStyles } from "@material-ui/styles";
-import * as React from "react";
+import { Link } from "@reach/router";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import logo from "../../assests/happyculteur-logo.png";
 
 export const useStyles = makeStyles(theme => ({
-  flex: {
-    flex: 1
+  AppBar: {
+    flexGrow: 1,
+    gridArea: "AppBar",
+    zIndex: 1
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
+  Logo: {
+    height: "60px",
+    width: "auto"
   },
-  root: {
-    flexGrow: 1
-  },
-  surveyButton: {
+  SurveyButton: {
     "&:hover": {
       backgroundColor: theme.palette.secondary.dark
     },
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.primary.light,
     marginLeft: "auto"
+  },
+  button: {
+    "&:hover": {
+      color: theme.palette.secondary.dark
+    },
+    color: theme.palette.primary.light
+  },
+  buttons: {
+    borderLeft: "solid black 2px",
+    marginLeft: "2%"
+  },
+  empty: {
+    flexGrow: 1
   }
 }));
 
-export const AppBar: React.SFC = props => {
+export const AppBar: React.FunctionComponent = props => {
   const classes = useStyles();
   const i18n = useTranslation();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.AppBar}>
       <MuiAppBar position="static" color="default">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
+          <img className={classes.Logo} src={logo} alt="Logo" />
+          <div className={classes.buttons}>
+            <Link to="/map">
+              <IconButton className={classes.button} aria-label="Menu">
+                <Map />
+              </IconButton>
+            </Link>
+            <Link to="/list">
+              <IconButton className={classes.button} aria-label="Menu">
+                <GridOn />
+              </IconButton>
+            </Link>
+            <Link to="/">
+              <IconButton className={classes.button} aria-label="Menu">
+                <VerticalSplit />
+              </IconButton>
+            </Link>
+          </div>
+          <div className={classes.empty} />
           <Button
-            className={classes.surveyButton}
-            color="primary"
+            className={classes.SurveyButton}
             href={process.env.REACT_APP_HAPPYCULTEUR_SURVEY}
             data-e2e="SurveyButton"
           >
