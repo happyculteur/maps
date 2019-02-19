@@ -1,5 +1,5 @@
-const useMock = [k => k, {}];
-useMock.t = k => k;
+const useMock = [(k) => k, {}];
+useMock.t = (k) => k;
 useMock.i18n = {};
 
 module.exports = {
