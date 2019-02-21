@@ -1,4 +1,4 @@
-# [HappyCulteur](https://www.happyculteur.co/) &middot; MAPS &middot; ![Twitter Follow](https://img.shields.io/twitter/follow/happyculteur_.svg?style=social&label=Follow)
+# [Happyculteur](https://www.happyculteur.co/) &middot; MAPS &middot; ![Twitter Follow](https://img.shields.io/twitter/follow/happyculteur_.svg?style=social&label=Follow)
 [![Build Status](https://travis-ci.com/happyculteur/maps.svg?branch=master)](https://travis-ci.org/happyculteur/maps)
 [![CLA assistant](https://cla-assistant.io/readme/badge/happyculteur/maps)](https://cla-assistant.io/happyculteur/maps)
 [![GitHub license](https://img.shields.io/badge/license-AGPL%20v3-blue.svg)](https://github.com/happyculteur/maps/blob/master/LICENSE.md)
