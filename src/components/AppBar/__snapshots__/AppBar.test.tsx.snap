@@ -4,10 +4,26 @@ exports[`AppBar component on shallow rendering should renders without crashing 1
 "<div className={[undefined]}>
   <WithStyles(AppBar) position=\\"static\\" color=\\"default\\">
     <WithStyles(Toolbar)>
-      <WithStyles(IconButton) className={[undefined]} color=\\"inherit\\" aria-label=\\"Menu\\">
-        <pure(MenuIcon) />
-      </WithStyles(IconButton)>
-      <WithStyles(Button) className={[undefined]} color=\\"primary\\" href={[undefined]} data-e2e=\\"SurveyButton\\">
+      <img className={[undefined]} src=\\"happyculteur-logo.png\\" alt=\\"Logo\\" />
+      <div className={[undefined]}>
+        <ForwardRef to=\\"/map\\">
+          <WithStyles(IconButton) className={[undefined]} aria-label=\\"Menu\\">
+            <pure(MapIcon) />
+          </WithStyles(IconButton)>
+        </ForwardRef>
+        <ForwardRef to=\\"/list\\">
+          <WithStyles(IconButton) className={[undefined]} aria-label=\\"Menu\\">
+            <pure(GridOnIcon) />
+          </WithStyles(IconButton)>
+        </ForwardRef>
+        <ForwardRef to=\\"/mixed\\">
+          <WithStyles(IconButton) className={[undefined]} aria-label=\\"Menu\\">
+            <pure(VerticalSplitIcon) />
+          </WithStyles(IconButton)>
+        </ForwardRef>
+      </div>
+      <div className={[undefined]} />
+      <WithStyles(Button) className={[undefined]} href={[undefined]} data-e2e=\\"SurveyButton\\">
         Take the survey!
       </WithStyles(Button)>
     </WithStyles(Toolbar)>
