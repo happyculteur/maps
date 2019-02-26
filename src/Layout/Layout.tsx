@@ -1,4 +1,5 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import { makeStyles, ThemeProvider } from "@material-ui/styles";
 import React from "react";
 import { ToastContainer } from "react-toastify";
@@ -29,14 +30,16 @@ const Layout: React.FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <Header />
-      <div className={classes.gridContainer}>
-        <AppBar />
-        <Router />
-        <Footer />
-      </div>
-      <ToastContainer />
+      <MuiThemeProvider theme={defaultTheme}>
+        <CssBaseline />
+        <Header />
+        <div className={classes.gridContainer}>
+          <AppBar />
+          <Router />
+          <Footer />
+        </div>
+        <ToastContainer />
+      </MuiThemeProvider>
     </ThemeProvider>
   );
 };
