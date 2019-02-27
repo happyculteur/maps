@@ -2,6 +2,7 @@
 
 ENV=$1
 
+npm install
 npm run build
 
 if [ $ENV = "production" ] then
