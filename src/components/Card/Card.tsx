@@ -1,83 +1,88 @@
 import {
+  Button,
   Card as MuiCard,
-  CardActions,
   CardContent,
   CardHeader,
-  CardMedia,
-  Collapse,
-  IconButton,
   Typography
 } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+import Email from "@material-ui/icons/Email";
+import GpsFixed from "@material-ui/icons/GpsFixed";
 import { makeStyles } from "@material-ui/styles";
-import classnames from "classnames";
 import React from "react";
 import honey from "../../assests/002-honey-6.svg";
+import { IUser } from "../../types";
 
 const useStyles = makeStyles(theme => ({
-  actions: {
+  Card: {
+    alignContent: "space-around",
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    margin: "10px"
+  },
+  CardActions: {
+    borderTop: `2px solid ${theme.palette.secondary.main}`,
+    display: "flex",
+    justifyContent: "space-around",
+    width: "100%"
+  },
+  CardContent: {
+    alignItems: "center",
     display: "flex"
   },
-  card: {
-    margin: "10px",
-    maxWidth: 400
+  CardHeader: {
+    textAlign: "center"
   },
-  expand: {
-    marginLeft: "auto",
-    transform: "rotate(0deg)",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+  avatar: {
+    height: "20%",
+    margin: 10,
+    width: "20%"
   },
-  expandOpen: {
-    transform: "rotate(180deg)"
+  button: {
+    borderLeft: `2px solid ${theme.palette.secondary.main}`,
+    height: "100%",
+    width: "50%"
   },
-  media: {
-    height: 0,
-    paddingTop: "56.25%" // 16:9
+  content: {
+    width: "75%"
   }
 }));
 
-const Card: React.FunctionComponent = () => {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+interface ICardOwnProps {
+  user: IUser;
+}
 
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
+const Card: React.FunctionComponent<ICardOwnProps> = props => {
+  const classes = useStyles();
 
   return (
-    <MuiCard className={classes.card}>
-      <CardHeader title="CARD TITLE" subheader="CARD SUBHEADER" />
-      <CardMedia className={classes.media} image={honey} title="IMG TTTLE" />
-      <CardContent>
-        <Typography component="p">TEXT</Typography>
-      </CardContent>
-      <CardActions disableActionSpacing={true} className={classes.actions}>
-        <IconButton aria-label="Add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="Share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={classnames(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse unmountOnExit={true} in={expanded} timeout="auto">
-        <CardContent>
-          <Typography paragraph={true}>Hidden Text!!</Typography>
+    <MuiCard className={classes.Card}>
+      <div>
+        <CardHeader
+          title={props.user.information.name}
+          subheader={props.user.information.category}
+          className={classes.CardHeader}
+        />
+        <CardContent className={classes.CardContent}>
+          <img alt="USER TYPE" src={honey} className={classes.avatar} />
+          <div className={classes.content}>
+            <Typography variant="subtitle1">
+              Interest: {props.user.information.interest}
+            </Typography>
+            <Typography variant="subtitle2">
+              Experience: {props.user.information.level}
+            </Typography>
+          </div>
         </CardContent>
-      </Collapse>
+      </div>
+      <div className={classes.CardActions}>
+        <Button className={classes.button}>
+          <GpsFixed />
+        </Button>
+        <Button className={classes.button}>
+          <Email />
+        </Button>
+      </div>
     </MuiCard>
   );
 };
