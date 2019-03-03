@@ -4,9 +4,9 @@ import React from "react";
 import { CardList } from "../../components/CardList";
 import { Map } from "../../components/Map";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   CardList: {
-    borderLeft: "5px dashed yellow"
+    borderLeft: `5px dashed ${theme.palette.secondary.main}`
   },
   gridContainer: {
     display: "grid",
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     height: "100%",
     width: "100%"
   }
-});
+}));
 
 const MapAndCardList: React.FunctionComponent<RouteComponentProps> = () => {
   const classes = useStyles();
