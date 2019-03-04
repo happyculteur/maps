@@ -1,0 +1,14 @@
+[
+  {
+    "id": "698C62BF-9E8C-4E02-9F95-584FAE224285",
+    "firstname": Alexandre,
+    "location": [48.8861894,2.3628055],
+    "seniority": 1,
+    "interest": [1,2],
+    "training": {
+      "isBilled": false,
+      "public": [1],
+      "isPartner": false
+    }
+  },
+]

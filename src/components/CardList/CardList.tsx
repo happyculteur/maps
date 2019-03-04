@@ -8,7 +8,8 @@ import { IUser } from "../../types";
 import { dataSourceTransformer } from "../../utils";
 import { Card } from "../Card";
 import { InfiniteScroll } from "../InfiniteScroll";
-import data from "./fakedata.json";
+import beekeeperData from "./beekeeperData.json";
+import individualData from "./individualData.json";
 
 const useStyles = makeStyles({
   CardList: {
