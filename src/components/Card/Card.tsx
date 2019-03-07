@@ -1,20 +1,16 @@
 import {
-  Button,
+  Avatar,
   Card as MuiCard,
   CardContent,
-  CardHeader,
   Typography
 } from "@material-ui/core";
-import Email from "@material-ui/icons/Email";
-import GpsFixed from "@material-ui/icons/GpsFixed";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
-import honey from "../../assests/002-honey-6.svg";
-import { IUser } from "../../types";
+import badge from "../../assests/ispartner.svg";
+import { IInformation, userInterest } from "../../types";
 
 const useStyles = makeStyles(theme => ({
   Card: {
-    alignContent: "space-around",
     alignItems: "center",
     display: "flex",
     flexWrap: "wrap",
@@ -27,16 +23,21 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   CardContent: {
-    alignItems: "center",
     display: "flex"
   },
   CardHeader: {
-    textAlign: "center"
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "nowrap",
+    justifyContent: "space-around",
+    textAlign: "center",
+    width: "100%"
   },
   avatar: {
-    height: "20%",
-    margin: 10,
-    width: "20%"
+    display: "flex",
+    height: "25%",
+    justifyContent: "center",
+    width: "25%"
   },
   button: {
     borderLeft: `2px solid ${theme.palette.secondary.main}`,
@@ -44,12 +45,26 @@ const useStyles = makeStyles(theme => ({
     width: "50%"
   },
   content: {
+    padding: "5%",
     width: "75%"
+  },
+  firstname: {
+    maxWidth: "12vw",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
+  },
+  title: {
+    width: "50%"
   }
 }));
 
 interface ICardOwnProps {
-  user: IUser;
+  actions: (className: string) => {};
+  avatar: string;
+  children: (className: string) => JSX.Element;
+  isPartner?: boolean;
+  user: IInformation;
 }
 
 const Card: React.FunctionComponent<ICardOwnProps> = props => {
@@ -57,32 +72,40 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
 
   return (
     <MuiCard className={classes.Card}>
-      <div>
-        <CardHeader
-          title={props.user.information.name}
-          subheader={props.user.information.category}
-          className={classes.CardHeader}
-        />
-        <CardContent className={classes.CardContent}>
-          <img alt="USER TYPE" src={honey} className={classes.avatar} />
-          <div className={classes.content}>
-            <Typography variant="subtitle1">
-              Interest: {props.user.information.interest}
-            </Typography>
-            <Typography variant="subtitle2">
-              Experience: {props.user.information.level}
-            </Typography>
-          </div>
-        </CardContent>
+      <div className={classes.CardHeader}>
+        <div className={classes.avatar}>
+          <Avatar alt="Happyculteur partner!" src={props.avatar} />
+        </div>
+        <div className={classes.title}>
+          <Typography variant="h5" className={classes.firstname}>
+            {props.user.firstname}
+          </Typography>
+          <Typography variant="body1">{props.user.category}</Typography>
+        </div>
+        <div className={classes.avatar}>
+          {props.isPartner && (
+            <Avatar alt="Happyculteur partner!" src={badge} />
+          )}
+        </div>
       </div>
-      <div className={classes.CardActions}>
-        <Button className={classes.button}>
-          <GpsFixed />
-        </Button>
-        <Button className={classes.button}>
-          <Email />
-        </Button>
-      </div>
+      <CardContent className={classes.CardContent}>
+        {props.children(classes.content)}
+        <div className={classes.content}>
+          <Typography variant="subtitle1">
+            Interest:
+            <ul>
+              {props.user.interests.map((interest, index) => (
+                <li key={index}>
+                  <Typography variant="subtitle2">
+                    {userInterest[interest.toString()]}
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          </Typography>
+        </div>
+      </CardContent>
+      <div className={classes.CardActions}>{props.actions(classes.button)}</div>
     </MuiCard>
   );
 };
