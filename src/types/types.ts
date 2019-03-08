@@ -1,46 +1,54 @@
-type userLevel = "Débutant" | "Confirmé" | "Expert";
-type userCategory = "Particulier" | "Apiculteur";
-type userInterest =
-  | "Transmettre son savoir"
-  | "Poser des ruches"
-  | "Vendre du miel"
-  | "Apprendre"
-  | "Proposer un/des espace/s";
-type spaceType = "Jardin" | "Terrasse" | "Toit" | "Prairie";
-type location = [number, number];
-
-export interface IBeekeeper {
-  installation: string;
-  hive: number;
-  since: number;
+export enum userLevel {
+  "Débutant",
+  "Confirmé",
+  "Expert"
 }
+export enum userCategory {
+  individual = "Particulier",
+  beekeeper = "Apiculteur"
+}
+export enum userInterest {
+  "Transmettre son savoir",
+  "Poser des ruches",
+  "Vendre du miel",
+  "Apprendre",
+  "Proposer un/des espace/s"
+}
+enum spaceType {
+  "Jardin",
+  "Terrasse",
+  "Toit",
+  "Prairie"
+}
+type location = number[];
+
 export interface IInformation {
   uuid: string;
-  name: string;
   category: userCategory;
-  level: userLevel;
-  interest: userInterest;
+  interests: userInterest[];
   location: location;
+  firstname: string;
 }
 export interface ISpace {
+  uuid: string;
   description: string;
-  location: location;
   size: number;
+  location: location;
   type: spaceType;
 }
 export interface ITraining {
   isBilled: boolean;
-  location: location;
-  target: userLevel;
+  isPartner: boolean;
+  targets: userLevel[];
 }
 
-export interface IUser {
-  information: IInformation;
+export interface IIndividual extends IInformation {
+  level: userLevel;
+  spaces: ISpace[];
 }
-export interface IUser {
-  space?: ISpace;
+export interface IBeekeeper extends IInformation {
+  seniority: number;
+  training: ITraining;
 }
-export interface IUser {
-  beekeeper?: IBeekeeper;
-  training?: ITraining;
-}
+
+export type userType = IBeekeeper | IIndividual;

@@ -53,7 +53,8 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
   };
 
   const onScroll = (event: UIEvent<HTMLDivElement>) => {
-    if (error || isLoading) {
+    // TODO: Proper algorithm resolution for handling infiniteScroll
+    if (error || isLoading || true) {
       return;
     }
 
