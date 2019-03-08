@@ -4,12 +4,9 @@ import classnames from "classnames";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { SyncLoader } from "react-spinners";
-import { IUser } from "../../types";
-import { dataSourceTransformer } from "../../utils";
-import { Card } from "../Card";
+import { IBeekeeper, IIndividual, userCategory, userType } from "../../types";
+import { CardBeekeeper, CardIndividual } from "../Card/Scenes";
 import { InfiniteScroll } from "../InfiniteScroll";
-import beekeeperData from "./beekeeperData.json";
-import individualData from "./individualData.json";
 
 const useStyles = makeStyles({
   CardList: {
@@ -27,36 +24,28 @@ const useStyles = makeStyles({
 
 interface ICardListOwnProps {
   className?: string;
+  load: (numberToLoad: number, elements: any[]) => Promise<any[]>;
 }
 
 const CardList: React.FunctionComponent<
   ICardListOwnProps & RouteComponentProps
 > = props => {
   const classes = useStyles();
-  const load: (
-    numberToLoad: number,
-    elements: IUser[]
-  ) => Promise<IUser[]> = async (numberToLoad: number) => {
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
-    return data.reduce(
-      (accumulator, userInfo) => {
-        accumulator.push(dataSourceTransformer(userInfo));
-
-        return accumulator;
-      },
-      [] as IUser[]
-    );
-  };
 
   return (
     <InfiniteScroll
-      numberToLoad={30}
-      load={load}
+      numberToLoad={10}
+      load={props.load}
       className={classnames(classes.CardList, props.className)}
       loaderElement={<SyncLoader />}
     >
-      {(user: IUser) => <Card key={user.information.uuid} user={user} />}
+      {(data: userType) => {
+        return data.category === userCategory.individual ? (
+          <CardIndividual key={data.uuid} individual={data as IIndividual} />
+        ) : (
+          <CardBeekeeper key={data.uuid} beekeeper={data as IBeekeeper} />
+        );
+      }}
     </InfiniteScroll>
   );
 };
