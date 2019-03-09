@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 import { RouteComponentProps } from "@reach/router";
+import classnames from "classnames";
 import { GeoJsonObject } from "geojson";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -18,7 +19,13 @@ const useStyles = makeStyles({
   }
 });
 
-const Map: React.FunctionComponent<RouteComponentProps> = props => {
+interface IMapOwnProps {
+  className?: string;
+}
+
+const Map: React.FunctionComponent<
+  IMapOwnProps & RouteComponentProps
+> = props => {
   const classes = useStyles();
   const drawMap = async () => {
     try {
@@ -51,7 +58,7 @@ const Map: React.FunctionComponent<RouteComponentProps> = props => {
   }, []);
 
   return (
-    <div className={classes.Map}>
+    <div className={classnames(classes.Map, props.className)}>
       <div id="mymap" className={classes.mapContainer} />
     </div>
   );

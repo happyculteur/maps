@@ -9,7 +9,11 @@ import individualData from "./individualData.json";
 
 const useStyles = makeStyles(theme => ({
   CardList: {
-    borderLeft: `5px dashed ${theme.palette.secondary.main}`
+    boxShadow: "-3px 0 30px -8px #444",
+    zIndex: 1
+  },
+  Map: {
+    zIndex: 0
   },
   gridContainer: {
     display: "grid",
@@ -46,7 +50,7 @@ const MapAndCardList: React.FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <div className={classes.gridContainer}>
-      <Map />
+      <Map className={classes.Map} />
       <CardList load={load} className={classes.CardList} />
     </div>
   );
