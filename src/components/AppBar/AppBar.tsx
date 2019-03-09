@@ -9,7 +9,7 @@ export const useStyles = makeStyles(theme => ({
   AppBar: {
     flexGrow: 1,
     gridArea: "AppBar",
-    zIndex: 1
+    zIndex: 2
   },
   Logo: {
     height: "60px",
@@ -26,7 +26,7 @@ export const AppBar: React.FunctionComponent = props => {
 
   return (
     <div className={classes.AppBar}>
-      <MuiAppBar position="static" color="default">
+      <MuiAppBar position="static" color="primary">
         <Toolbar>
           <Link to="/">
             <img className={classes.Logo} src={logo} alt="Logo" />

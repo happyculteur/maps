@@ -4,6 +4,7 @@ import React from "react";
 
 const useStyles = makeStyles(theme => ({
   Footer: {
+    backgroundColor: theme.palette.primary.main,
     borderRadius: "2px",
     boxShadow: `
     -1px -2px 4px -1px rgba(0,0,0,0.2),
@@ -11,8 +12,7 @@ const useStyles = makeStyles(theme => ({
     -1px -1px 10px -1px rgba(0,0,0,0.12)
     `,
     gridArea: "Footer",
-    marginTop: "2px",
-    zIndex: 1
+    zIndex: 2
   },
   Link: {
     "&:hover": {
