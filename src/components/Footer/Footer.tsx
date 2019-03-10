@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 
 const useStyles = makeStyles(theme => ({
   Footer: {
+    alignItems: "center",
     backgroundColor: theme.palette.primary.main,
     borderRadius: "2px",
     boxShadow: `
@@ -11,10 +13,12 @@ const useStyles = makeStyles(theme => ({
     -1px -4px 5px -1px rgba(0,0,0,0.14),
     -1px -1px 10px -1px rgba(0,0,0,0.12)
     `,
+    display: "flex",
     gridArea: "Footer",
+    justifyContent: "space-around",
     zIndex: 2
   },
-  Link: {
+  LinkIconIcon: {
     "&:hover": {
       color: theme.palette.secondary.dark
     },
@@ -27,8 +31,33 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
-    justifyContent: "space-around",
-    marginTop: "8px"
+    justifyContent: "space-around"
+  },
+  link: {
+    "&::after": {
+      background: theme.palette.secondary.dark,
+      content: "''",
+      height: "1px",
+      left: "0",
+      opacity: 0,
+      position: "absolute",
+      top: "80%",
+      transform: "translateY(-5px)",
+      transition: "height 0.3s, opacity 0.3s, transform 0.3s",
+      width: "100%"
+    },
+    "&:hover::after, &:hover::after": {
+      height: "5px",
+      opacity: 1,
+      transform: "translateY(0px)"
+    },
+    color: theme.palette.primary.dark,
+    display: "inline-block",
+    outline: "none",
+    padding: "0 0 10px",
+    position: "relative",
+    textDecoration: "none",
+    textShadow: "0 0 1px rgba(255,255,255,0.3)"
   }
 }));
 
@@ -37,24 +66,41 @@ const Footer: React.FunctionComponent = () => {
 
   return (
     <div className={classes.Footer}>
+      <div>
+        <Typography variant="overline">
+          <a className={classes.link} href="">
+            © COPYRIGHT 2019. TOUS DROITS RESERVES
+          </a>
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="overline">
+          <a className={classes.link} href="">
+            MENTIONS LEGALES
+          </a>
+        </Typography>
+      </div>
       <div className={classes.Social}>
         <a
-          className={classes.Link}
+          className={classes.LinkIconIcon}
           href="https://www.facebook.com/happyculteur.co/"
         >
-          <FontAwesomeIcon icon={["fab", "facebook"]} size="3x" />
-        </a>
-        <a className={classes.Link} href="https://twitter.com/happyculteur_">
-          <FontAwesomeIcon icon={["fab", "twitter"]} size="3x" />
+          <FontAwesomeIcon icon={["fab", "facebook"]} size="2x" />
         </a>
         <a
-          className={classes.Link}
+          className={classes.LinkIconIcon}
+          href="https://twitter.com/happyculteur_"
+        >
+          <FontAwesomeIcon icon={["fab", "twitter"]} size="2x" />
+        </a>
+        <a
+          className={classes.LinkIconIcon}
           href="https://www.instagram.com/happyculteur.co/"
         >
-          <FontAwesomeIcon icon={["fab", "instagram"]} size="3x" />
+          <FontAwesomeIcon icon={["fab", "instagram"]} size="2x" />
         </a>
-        <a className={classes.Link} href="mailto:hello@happyculteur.co">
-          <FontAwesomeIcon icon="envelope" size="3x" />
+        <a className={classes.LinkIconIcon} href="mailto:hello@happyculteur.co">
+          <FontAwesomeIcon icon="envelope" size="2x" />
         </a>
       </div>
     </div>
