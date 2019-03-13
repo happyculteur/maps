@@ -45,4 +45,4 @@ const Router: React.FunctionComponent = () => {
   );
 };
 
-export default Router;
+export default React.memo(Router);

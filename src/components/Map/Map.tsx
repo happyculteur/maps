@@ -64,4 +64,4 @@ const Map: React.FunctionComponent<
   );
 };
 
-export default Map;
+export default React.memo(Map);
