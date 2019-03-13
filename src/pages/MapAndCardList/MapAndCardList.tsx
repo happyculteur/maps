@@ -56,4 +56,4 @@ const MapAndCardList: React.FunctionComponent<RouteComponentProps> = () => {
   );
 };
 
-export default MapAndCardList;
+export default React.memo(MapAndCardList);
