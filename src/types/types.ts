@@ -5,7 +5,8 @@ export enum userLevel {
 }
 export enum userCategory {
   individual = "Particulier",
-  beekeeper = "Apiculteur"
+  beekeeper = "Apiculteur",
+  space = "Espace"
 }
 export enum userInterest {
   "Transmettre son savoir",
@@ -31,6 +32,7 @@ export interface IInformation {
 }
 export interface ISpace {
   uuid: string;
+  category: userCategory.space;
   description: string;
   size: number;
   location: location;
@@ -51,4 +53,4 @@ export interface IBeekeeper extends IInformation {
   training: ITraining;
 }
 
-export type userType = IBeekeeper | IIndividual;
+export type userType = IBeekeeper | IIndividual | ISpace;
