@@ -4,6 +4,7 @@ import classnames from "classnames";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { SyncLoader } from "react-spinners";
+import { UserContext } from "../../context/UserContext";
 import { IBeekeeper, IIndividual, userCategory, userType } from "../../types";
 import { CardBeekeeper, CardIndividual } from "../Card/Scenes";
 import { InfiniteScroll } from "../InfiniteScroll";
@@ -24,18 +25,19 @@ const useStyles = makeStyles({
 
 interface ICardListOwnProps {
   className?: string;
-  load: (numberToLoad: number, elements: any[]) => Promise<any[]>;
 }
 
 const CardList: React.FunctionComponent<
   ICardListOwnProps & RouteComponentProps
 > = props => {
   const classes = useStyles();
+  const userContextValue = React.useContext(UserContext);
 
   return (
     <InfiniteScroll
-      numberToLoad={10}
-      load={props.load}
+      numberToLoad={3}
+      load={userContextValue.load}
+      elements={userContextValue.userElements}
       className={classnames(classes.CardList, props.className)}
       loaderElement={<SyncLoader />}
     >

@@ -1,0 +1,50 @@
+[
+  {
+    "uuid": "698C62BF-9E8C-4E02-9F95-584FAE224285",
+    "firstname": "Alexandre",
+    "location": [48.8861894,2.3628055],
+    "seniority": 1,
+    "interests": [1,2],
+    "training": {
+      "isBilled": false,
+      "targets": [0],
+      "isPartner": false
+    }
+  },
+  {
+    "uuid": "698C62BF-9E8C-4E02-9F95-584FAE224287",
+    "firstname": "MoneyMaker $$$",
+    "location": [48.85711,2.39736],
+    "seniority": 1,
+    "interests": [1,2],
+    "training": {
+      "isBilled": true,
+      "targets": [1, 2],
+      "isPartner": true
+    }
+  },
+  {
+    "uuid": "698C62BF-9E8C-4E02-9F95-584FAE224289",
+    "firstname": "Johny",
+    "location": [48.83254,2.29976],
+    "seniority": 1,
+    "interests": [1,2],
+    "training": {
+      "isBilled": false,
+      "targets": [0],
+      "isPartner": false
+    }
+  },
+  {
+    "uuid": "698C62BF-9E8C-4E02-9F95-584FAE224257",
+    "firstname": "CashFlow $$$",
+    "location": [48.86417,2.32619],
+    "seniority": 1,
+    "interests": [1,2],
+    "training": {
+      "isBilled": true,
+      "targets": [1, 2],
+      "isPartner": true
+    }
+  }
+]
