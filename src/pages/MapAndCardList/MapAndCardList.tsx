@@ -3,10 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import React from "react";
 import { CardList } from "../../components/CardList";
 import { Map } from "../../components/Map";
-import { userCategory, userType } from "../../types";
-import beekeeperData from "./beekeeperData.json";
-import individualData from "./individualData.json";
-
+import { UserContextProvider } from "../../context/UserContext";
 const useStyles = makeStyles(theme => ({
   CardList: {
     boxShadow: "-3px 0 30px -8px #444",
@@ -29,29 +26,13 @@ const useStyles = makeStyles(theme => ({
 
 const MapAndCardList: React.FunctionComponent<RouteComponentProps> = () => {
   const classes = useStyles();
-  // TODO: To be handle as context with { elements[] load() }
-  const load: (
-    numberToLoad: number,
-    elements: userType[]
-  ) => Promise<userType[]> = async (elements, numberToLoad) => {
-    // TODO: Proper algorithm resolution for handling infiniteScroll
-    const data: userType[] = [];
-    const beekeepers = beekeeperData.map(beekeeper => ({
-      ...beekeeper,
-      category: userCategory.beekeeper
-    }));
-    const individuals = individualData.map(individual => ({
-      ...individual,
-      category: userCategory.individual
-    }));
-
-    return data.concat(beekeepers, individuals);
-  };
 
   return (
     <div className={classes.gridContainer}>
-      <Map className={classes.Map} />
-      <CardList load={load} className={classes.CardList} />
+      <UserContextProvider>
+        <Map className={classes.Map} />
+        <CardList className={classes.CardList} />
+      </UserContextProvider>
     </div>
   );
 };

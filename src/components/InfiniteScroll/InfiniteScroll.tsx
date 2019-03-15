@@ -1,6 +1,8 @@
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 import React, { ReactElement, UIEvent, useEffect, useState } from "react";
+import { usePrevious } from "../../hooks/usePrevious";
+import { userType } from "../../types";
 
 const useStyles = makeStyles({
   InfiniteScroll: {
@@ -18,33 +20,33 @@ const useStyles = makeStyles({
 
 interface IInfiniteScrollProps {
   children: (element: any) => JSX.Element;
-  load: (numberToLoad: number, elements: any[]) => Promise<any[]>;
-  loaderElement?: ReactElement;
-  errorElement?: ReactElement;
-  numberToLoad: number;
   className: string;
+  elements: userType[];
+  errorElement?: ReactElement;
+  load: (numberToLoad: number) => Promise<void>;
+  loaderElement?: ReactElement;
+  numberToLoad: number;
 }
 
 const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
-  const init: Array<{}> = [];
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [elements, setElements] = useState(init);
+  const prevElements = usePrevious(props.elements);
   const classes = useStyles();
 
   useEffect(() => {
-    setElements([]);
-    loadElements();
-  }, [props.load]);
+    if (prevElements === undefined) {
+      loadElements();
+    }
+  }, [prevElements]);
 
   const loadElements = async () => {
     setIsLoading(true);
 
     try {
       const { load, numberToLoad } = props;
-      const nextElements = await load(numberToLoad, elements);
 
-      setElements([...elements, ...nextElements]);
+      await load(numberToLoad);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -53,8 +55,7 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
   };
 
   const onScroll = (event: UIEvent<HTMLDivElement>) => {
-    // TODO: Proper algorithm resolution for handling infiniteScroll
-    if (error || isLoading || true) {
+    if (error || isLoading) {
       return;
     }
 
@@ -73,7 +74,7 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
       className={classnames(classes.InfiniteScroll, props.className)}
       onScroll={onScroll}
     >
-      {elements.map(props.children)}
+      {props.elements.map(props.children)}
       <div className={classes.information}>
         {error && (props.errorElement || <div>{error}</div>)}
         {isLoading && (props.loaderElement || <div>Loading...</div>)}
