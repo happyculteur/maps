@@ -69,7 +69,7 @@ const Footer: React.FunctionComponent = () => {
       <div>
         <Typography variant="overline">
           <a className={classes.link} href="">
-            © COPYRIGHT 2019. TOUS DROITS RESERVES
+            HAPPYCULTEUR © COPYRIGHT 2019. TOUS DROITS RESERVES
           </a>
         </Typography>
       </div>
