@@ -6,6 +6,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { toast } from "react-toastify";
+import { defaultTheme } from "../../configuration/materialUi";
+import { UserContext } from "../../context/UserContext";
+import { userCategory, userType } from "../../types";
 import boundaries from "./boundaries.json";
 
 const useStyles = makeStyles({
@@ -26,15 +29,32 @@ interface IMapOwnProps {
 const Map: React.FunctionComponent<
   IMapOwnProps & RouteComponentProps
 > = props => {
+  const colors = {
+    [userCategory.individual]: defaultTheme.palette.primary.main,
+    [userCategory.beekeeper]: defaultTheme.palette.secondary.main,
+    [userCategory.space]: defaultTheme.palette.primary.dark
+  };
+  const [map, setMap] = React.useState();
   const classes = useStyles();
-  const drawMap = async () => {
+  const userContextValue = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    drawMap();
+  }, []);
+  React.useEffect(() => {
+    if (userContextValue.userElements.length > 0 && map) {
+      drawCircle(userContextValue.userElements);
+    }
+  }, [map, userContextValue.userElements]);
+
+  const drawMap = () => {
     try {
       const osmURL = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
       const attribution =
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
 
       // Create map
-      const map = L.map("mymap", {
+      const baseMap = L.map("mymap", {
         center: [48.858, 2.351499],
         layers: [
           L.tileLayer(osmURL, {
@@ -45,17 +65,27 @@ const Map: React.FunctionComponent<
       });
 
       // Add GeoJson boundaries
-      L.geoJSON(boundaries as GeoJsonObject).addTo(map);
+      L.geoJSON(boundaries as GeoJsonObject).addTo(baseMap);
       // Bound map to defined area
-      map.setMaxBounds(map.getBounds());
+      baseMap.setMaxBounds(baseMap.getBounds());
+
+      setMap(baseMap);
     } catch (error) {
       toast.error(error);
     }
   };
 
-  React.useEffect(() => {
-    drawMap();
-  }, []);
+  const drawCircle = (elements: userType[]) => {
+    elements.forEach((element: userType) => {
+      const color = colors[element.category];
+      L.circle([element.location[0], element.location[1]], {
+        color,
+        fillColor: color,
+        fillOpacity: 0.5,
+        radius: 50
+      }).addTo(map);
+    });
+  };
 
   return (
     <div className={classnames(classes.Map, props.className)}>
