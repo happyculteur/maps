@@ -14,13 +14,19 @@ interface ICardIndividualOwnProps {
 const CardIndividual: React.FunctionComponent<
   ICardIndividualOwnProps
 > = props => {
-  const { uuid, firstname, location, interests, level } = props.individual;
-  const hasSpace = props.individual.spaces.length > 0;
+  const {
+    uuid,
+    primary,
+    location,
+    interests,
+    level,
+    hasSpace
+  } = props.individual;
   const user = {
     category: userCategory.individual,
-    firstname,
     interests,
     location,
+    primary,
     uuid
   };
   const renderContent = (className: string) => (

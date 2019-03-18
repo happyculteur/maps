@@ -23,16 +23,16 @@ enum spaceType {
 }
 type location = number[];
 
-export interface IInformation {
+interface IBasicInformation {
   uuid: string;
   category: userCategory;
-  interests: userInterest[];
-  location: location;
-  firstname: string;
+  primary: string;
 }
-export interface ISpace {
-  uuid: string;
-  category: userCategory.space;
+export interface IInformation extends IBasicInformation {
+  interests?: userInterest[];
+  location: location;
+}
+export interface ISpace extends IBasicInformation {
   description: string;
   size: number;
   location: location;
@@ -46,7 +46,7 @@ export interface ITraining {
 
 export interface IIndividual extends IInformation {
   level: userLevel;
-  spaces: ISpace[];
+  hasSpace: boolean;
 }
 export interface IBeekeeper extends IInformation {
   seniority: number;

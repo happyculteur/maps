@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     padding: "5%",
     width: "75%"
   },
-  firstname: {
+  primary: {
     maxWidth: "12vw",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -77,8 +77,8 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           <Avatar alt="Happyculteur partner!" src={props.avatar} />
         </div>
         <div className={classes.title}>
-          <Typography variant="h5" className={classes.firstname}>
-            {props.user.firstname}
+          <Typography variant="h5" className={classes.primary}>
+            {props.user.primary}
           </Typography>
           <Typography variant="body1">{props.user.category}</Typography>
         </div>
