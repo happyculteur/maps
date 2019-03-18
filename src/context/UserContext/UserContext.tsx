@@ -21,11 +21,12 @@ const UserContextProvider: React.FunctionComponent = props => {
   const load: (numberToLoad: number) => Promise<void> = async numberToLoad => {
     let diff;
     const data: userType[] = [];
-    const beekeepers = beekeeperData.map(
+    const beekeepers: IBeekeeper[] = beekeeperData.map(
       beekeeper =>
         ({
           ...beekeeper,
-          category: userCategory.beekeeper
+          category: userCategory.beekeeper,
+          primary: beekeeper.firstname
         } as IBeekeeper)
     );
     diff = _.differenceBy(beekeepers, userElements, "uuid");
@@ -33,19 +34,25 @@ const UserContextProvider: React.FunctionComponent = props => {
     if (diff.length < numberToLoad) {
       let spaces = [] as ISpace[];
       const individuals = individualData.map(individual => {
-        if (individual.spaces) {
-          spaces = individual.spaces.map(
-            space =>
-              ({
-                ...space,
-                category: userCategory.space
-              } as ISpace)
+        const { spaces: spacesIndividual, ...rest } = individual;
+        if (spacesIndividual) {
+          spaces = spaces.concat(
+            individual.spaces.map(
+              space =>
+                ({
+                  ...space,
+                  category: userCategory.space,
+                  primary: space.description
+                } as ISpace)
+            )
           );
         }
 
         return {
-          ...individual,
-          category: userCategory.individual
+          ...rest,
+          category: userCategory.individual,
+          hasSpace: !!spacesIndividual,
+          primary: individual.firstname
         } as IIndividual;
       });
 

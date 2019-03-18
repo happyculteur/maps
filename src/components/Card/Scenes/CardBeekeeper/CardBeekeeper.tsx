@@ -15,7 +15,7 @@ const CardBeekeeper: React.FunctionComponent<
 > = props => {
   const {
     uuid,
-    firstname,
+    primary,
     location,
     interests,
     seniority,
@@ -23,9 +23,9 @@ const CardBeekeeper: React.FunctionComponent<
   } = props.beekeeper;
   const user = {
     category: userCategory.beekeeper,
-    firstname,
     interests,
     location,
+    primary,
     uuid
   };
   const renderContent = (className: string) => (
