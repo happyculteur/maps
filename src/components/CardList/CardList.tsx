@@ -5,8 +5,14 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { SyncLoader } from "react-spinners";
 import { UserContext } from "../../context/UserContext";
-import { IBeekeeper, IIndividual, userCategory, userType } from "../../types";
-import { CardBeekeeper, CardIndividual } from "../Card/Scenes";
+import {
+  IBeekeeper,
+  IIndividual,
+  ISpace,
+  userCategory,
+  userType
+} from "../../types";
+import { CardBeekeeper, CardIndividual, CardSpace } from "../Card/Scenes";
 import { InfiniteScroll } from "../InfiniteScroll";
 
 const useStyles = makeStyles({
@@ -30,6 +36,17 @@ interface ICardListOwnProps {
 const CardList: React.FunctionComponent<
   ICardListOwnProps & RouteComponentProps
 > = props => {
+  const userRender = {
+    [userCategory.individual]: (data: IIndividual) => (
+      <CardIndividual key={data.uuid} individual={data} />
+    ),
+    [userCategory.beekeeper]: (data: IBeekeeper) => (
+      <CardBeekeeper key={data.uuid} beekeeper={data} />
+    ),
+    [userCategory.space]: (data: ISpace) => (
+      <CardSpace key={data.uuid} space={data} />
+    )
+  };
   const classes = useStyles();
   const userContextValue = React.useContext(UserContext);
 
@@ -42,11 +59,7 @@ const CardList: React.FunctionComponent<
       loaderElement={<SyncLoader />}
     >
       {(data: userType) => {
-        return data.category === userCategory.individual ? (
-          <CardIndividual key={data.uuid} individual={data as IIndividual} />
-        ) : (
-          <CardBeekeeper key={data.uuid} beekeeper={data as IBeekeeper} />
-        );
+        return userRender[data.category](data as any);
       }}
     </InfiniteScroll>
   );

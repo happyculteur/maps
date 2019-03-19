@@ -15,7 +15,7 @@ export enum userInterest {
   "Apprendre",
   "Proposer un/des espace/s"
 }
-enum spaceType {
+export enum spaceType {
   "Jardin",
   "Terrasse",
   "Toit",
