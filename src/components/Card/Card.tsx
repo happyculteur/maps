@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     width: "100%"
   },
   CardContent: {
-    display: "flex"
+    display: "flex",
+    width: "100%"
   },
   CardHeader: {
     alignItems: "center",
@@ -46,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     padding: "5%",
-    width: "75%"
+    width: "100%"
   },
   primary: {
     maxWidth: "12vw",
@@ -90,20 +91,24 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
       </div>
       <CardContent className={classes.CardContent}>
         {props.children(classes.content)}
-        <div className={classes.content}>
-          <Typography variant="subtitle1">
-            Interest:
-            <ul>
-              {props.user.interests.map((interest, index) => (
-                <li key={index}>
-                  <Typography variant="subtitle2">
-                    {userInterest[interest.toString()]}
-                  </Typography>
-                </li>
-              ))}
-            </ul>
-          </Typography>
-        </div>
+        {props.user.interests && (
+          <>
+            <div className={classes.content}>
+              <Typography variant="subtitle1">
+                <span>Interest:</span>
+                <ul>
+                  {props.user.interests.map((interest, index) => (
+                    <li key={index}>
+                      <Typography variant="subtitle2">
+                        {userInterest[interest.toString()]}
+                      </Typography>
+                    </li>
+                  ))}
+                </ul>
+              </Typography>
+            </div>
+          </>
+        )}
       </CardContent>
       <div className={classes.CardActions}>{props.actions(classes.button)}</div>
     </MuiCard>
