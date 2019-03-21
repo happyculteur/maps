@@ -66,8 +66,6 @@ const Map: React.FunctionComponent<
 
       // Add GeoJson boundaries
       L.geoJSON(boundaries as GeoJsonObject).addTo(baseMap);
-      // Bound map to defined area
-      baseMap.setMaxBounds(baseMap.getBounds());
 
       setMap(baseMap);
     } catch (error) {
