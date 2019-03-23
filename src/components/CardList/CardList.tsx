@@ -36,6 +36,9 @@ interface ICardListOwnProps {
 const CardList: React.FunctionComponent<
   ICardListOwnProps & RouteComponentProps
 > = props => {
+  const classes = useStyles();
+  const { load, userElements } = React.useContext(UserContext);
+
   const userRender = {
     [userCategory.individual]: (data: IIndividual) => (
       <CardIndividual key={data.uuid} individual={data} />
@@ -47,14 +50,12 @@ const CardList: React.FunctionComponent<
       <CardSpace key={data.uuid} space={data} />
     )
   };
-  const classes = useStyles();
-  const userContextValue = React.useContext(UserContext);
 
   return (
     <InfiniteScroll
       numberToLoad={3}
-      load={userContextValue.load}
-      elements={userContextValue.userElements}
+      load={load}
+      elements={userElements}
       className={classnames(classes.CardList, props.className)}
       loaderElement={<SyncLoader />}
     >

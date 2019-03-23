@@ -2,9 +2,9 @@ import { makeStyles } from "@material-ui/styles";
 import { RouteComponentProps } from "@reach/router";
 import classnames from "classnames";
 import { GeoJsonObject } from "geojson";
-import L from "leaflet";
+import L, { LeafletEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { defaultTheme } from "../../configuration/materialUi";
 import { UserContext } from "../../context/UserContext";
@@ -34,18 +34,23 @@ const Map: React.FunctionComponent<
     [userCategory.beekeeper]: defaultTheme.palette.secondary.main,
     [userCategory.space]: defaultTheme.palette.primary.dark
   };
-  const [map, setMap] = React.useState();
+  const [map, setMap] = useState();
   const classes = useStyles();
-  const userContextValue = React.useContext(UserContext);
+  const { userElements, focus, setFocus } = React.useContext(UserContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     drawMap();
   }, []);
-  React.useEffect(() => {
-    if (userContextValue.userElements.length > 0 && map) {
-      drawCircle(userContextValue.userElements);
+  useEffect(() => {
+    if (userElements.length && map) {
+      userElements.forEach(drawCircle);
     }
-  }, [map, userContextValue.userElements]);
+  }, [map, userElements]);
+  useEffect(() => {
+    if (focus.length && map) {
+      map.setView(focus, 15);
+    }
+  }, [map, focus]);
 
   const drawMap = () => {
     try {
@@ -72,17 +77,21 @@ const Map: React.FunctionComponent<
       toast.error(error);
     }
   };
+  const drawCircle = (element: userType) => {
+    const color = colors[element.category];
+    L.circle([element.location[0], element.location[1]], {
+      color,
+      fillColor: color,
+      fillOpacity: 0.5,
+      radius: 50
+    })
+      .addTo(map)
+      .on("click", onClickCircle);
+  };
 
-  const drawCircle = (elements: userType[]) => {
-    elements.forEach((element: userType) => {
-      const color = colors[element.category];
-      L.circle([element.location[0], element.location[1]], {
-        color,
-        fillColor: color,
-        fillOpacity: 0.5,
-        radius: 50
-      }).addTo(map);
-    });
+  const onClickCircle: (event: LeafletEvent) => void = event => {
+    const { lat, lng } = event.target._latlng;
+    setFocus([lat, lng]);
   };
 
   return (
