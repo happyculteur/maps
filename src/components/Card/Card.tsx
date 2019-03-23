@@ -5,8 +5,10 @@ import {
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
+import _ from "lodash";
+import React, { useEffect, useRef } from "react";
 import badge from "../../assests/ispartner.svg";
+import { UserContext } from "../../context/UserContext";
 import { IInformation, userInterest } from "../../types";
 
 const useStyles = makeStyles(theme => ({
@@ -14,7 +16,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     display: "flex",
     flexWrap: "wrap",
-    margin: "10px"
+    margin: "10px",
+    transition: "all 0.30s ease-in-out"
   },
   CardActions: {
     borderTop: `2px solid ${theme.palette.secondary.main}`,
@@ -49,6 +52,9 @@ const useStyles = makeStyles(theme => ({
     padding: "5%",
     width: "100%"
   },
+  focus: {
+    border: `3px solid ${theme.palette.secondary.main}`
+  },
   primary: {
     maxWidth: "12vw",
     overflow: "hidden",
@@ -70,10 +76,35 @@ interface ICardOwnProps {
 
 const Card: React.FunctionComponent<ICardOwnProps> = props => {
   const classes = useStyles();
+  const { focus } = React.useContext(UserContext);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cardRef = ref && ref.current && ref.current.parentElement;
+    const cardListRef = cardRef && cardRef.parentElement;
+
+    if (_.isEqual(props.user.location, focus) && cardRef && cardListRef) {
+      cardListRef.scroll({
+        behavior: "smooth",
+        left: 0,
+        top:
+          cardRef.offsetTop -
+          cardListRef.offsetTop -
+          cardListRef.offsetHeight +
+          cardRef.offsetHeight * 2
+      });
+    }
+  }, [focus]);
 
   return (
-    <MuiCard className={classes.Card}>
-      <div className={classes.CardHeader}>
+    <MuiCard
+      className={
+        _.isEqual(props.user.location, focus)
+          ? `${classes.Card} ${classes.focus}`
+          : classes.Card
+      }
+    >
+      <div className={classes.CardHeader} ref={ref}>
         <div className={classes.avatar}>
           <Avatar alt="Happyculteur partner!" src={props.avatar} />
         </div>

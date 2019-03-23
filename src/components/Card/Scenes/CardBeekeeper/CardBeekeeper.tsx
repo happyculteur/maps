@@ -4,6 +4,7 @@ import GpsFixed from "@material-ui/icons/GpsFixed";
 import React from "react";
 import { Card } from "../../";
 import beekeeper from "../../../../assests/beekeeper.svg";
+import { UserContext } from "../../../../context/UserContext";
 import { IBeekeeper, userCategory, userLevel } from "../../../../types";
 
 interface ICardBeekeeperOwnProps {
@@ -28,6 +29,8 @@ const CardBeekeeper: React.FunctionComponent<
     primary,
     uuid
   };
+  const { setFocus } = React.useContext(UserContext);
+
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">Since: {seniority} years</Typography>
@@ -55,7 +58,7 @@ const CardBeekeeper: React.FunctionComponent<
   const renderActions = (className: string) => (
     // TODO: Action to define
     <>
-      <Button className={className}>
+      <Button className={className} onClick={onClickGps}>
         <GpsFixed />
       </Button>
       <Button className={className}>
@@ -63,6 +66,12 @@ const CardBeekeeper: React.FunctionComponent<
       </Button>
     </>
   );
+
+  const onClickGps: (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => void = event => {
+    setFocus(location);
+  };
 
   return (
     <Card

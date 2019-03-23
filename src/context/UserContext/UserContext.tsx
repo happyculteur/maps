@@ -11,13 +11,23 @@ import beekeeperData from "./beekeeperData.json";
 import individualData from "./individualData.json";
 
 export let UserContext = React.createContext({
+  focus: [] as number[],
   load: (numberToLoad: number) => Promise.resolve(),
+  setFocus: (value: number[]) => {
+    return;
+  },
   userElements: [] as userType[]
 });
 
 const UserContextProvider: React.FunctionComponent = props => {
   const initialData: userType[] = [];
   const [userElements, setUserElements] = React.useState(initialData);
+  const [focus, setFocusValue] = React.useState([] as number[]);
+  /* TS hack */
+  const setFocus = (value: number[]) => {
+    setFocusValue(value);
+  };
+  /* TS hack */
   const load: (numberToLoad: number) => Promise<void> = async numberToLoad => {
     let diff;
     const data: userType[] = [];
@@ -68,7 +78,9 @@ const UserContextProvider: React.FunctionComponent = props => {
     }
   };
   const initialValue = {
+    focus,
     load,
+    setFocus,
     userElements
   };
 

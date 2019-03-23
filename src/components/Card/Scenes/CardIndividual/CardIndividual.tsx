@@ -5,6 +5,7 @@ import Landscape from "@material-ui/icons/Landscape";
 import React from "react";
 import { Card } from "../../";
 import individual from "../../../../assests/individual.svg";
+import { UserContext } from "../../../../context/UserContext";
 import { IIndividual, userCategory, userLevel } from "../../../../types";
 
 interface ICardIndividualOwnProps {
@@ -29,6 +30,8 @@ const CardIndividual: React.FunctionComponent<
     primary,
     uuid
   };
+  const { setFocus } = React.useContext(UserContext);
+
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">
@@ -39,7 +42,7 @@ const CardIndividual: React.FunctionComponent<
   const renderActions = (className: string) => (
     // TODO: Action to define
     <>
-      <Button className={className}>
+      <Button className={className} onClick={onClickGps}>
         <GpsFixed />
       </Button>
       {hasSpace && (
@@ -52,6 +55,12 @@ const CardIndividual: React.FunctionComponent<
       </Button>
     </>
   );
+
+  const onClickGps: (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => void = event => {
+    setFocus(location);
+  };
 
   return (
     <Card avatar={individual} user={user} actions={renderActions}>

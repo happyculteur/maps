@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
-import React, { ReactElement, UIEvent, useEffect, useState } from "react";
-import { usePrevious } from "../../hooks/usePrevious";
+import React, { ReactElement, useEffect, useState } from "react";
+import { usePrevious } from "../../hooks";
 import { userType } from "../../types";
+import { ScrollIcon } from "../ScrollIcon";
 
 const useStyles = makeStyles({
   InfiniteScroll: {
@@ -10,11 +11,9 @@ const useStyles = makeStyles({
     overflow: "auto"
   },
   information: {
-    flex: "1 1 100%",
-    height: "4%",
-    margin: "auto 0",
-    padding: "2%",
-    textAlign: "center"
+    height: "20%",
+    marginBottom: "10%",
+    paddingTop: "10%"
   }
 });
 
@@ -54,7 +53,7 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
     }
   };
 
-  const onScroll = (event: UIEvent<HTMLDivElement>) => {
+  const onWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     if (error || isLoading) {
       return;
     }
@@ -72,10 +71,11 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
   return (
     <div
       className={classnames(classes.InfiniteScroll, props.className)}
-      onScroll={onScroll}
+      onWheel={onWheel}
     >
       {props.elements.map(props.children)}
       <div className={classes.information}>
+        {!error && !isLoading && <ScrollIcon />}
         {error && (props.errorElement || <div>{error}</div>)}
         {isLoading && (props.loaderElement || <div>Loading...</div>)}
       </div>

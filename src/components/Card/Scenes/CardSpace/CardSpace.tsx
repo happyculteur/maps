@@ -4,6 +4,7 @@ import GpsFixed from "@material-ui/icons/GpsFixed";
 import React from "react";
 import { Card } from "../../";
 import space from "../../../../assests/space.svg";
+import { UserContext } from "../../../../context/UserContext";
 import { ISpace, spaceType, userCategory } from "../../../../types";
 
 interface ICardSpaceOwnProps {
@@ -18,6 +19,8 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
     primary: spaceType[type.toString()],
     uuid
   };
+  const { setFocus } = React.useContext(UserContext);
+
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">Size : {size}</Typography>
@@ -26,7 +29,7 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
   );
   const renderActions = (className: string) => (
     <>
-      <Button className={className}>
+      <Button className={className} onClick={onClickGps}>
         <GpsFixed />
       </Button>
       <Button className={className}>
@@ -34,6 +37,12 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
       </Button>
     </>
   );
+
+  const onClickGps: (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => void = event => {
+    setFocus(location);
+  };
 
   return (
     <Card avatar={space} user={user} actions={renderActions}>
