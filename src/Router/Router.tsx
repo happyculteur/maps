@@ -4,11 +4,11 @@ import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { MapAndCardList } from "../pages/MapAndCardList";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   Router: {
     "@global": {
       "::-webkit-scrollbar": {
-        backgroundColor: "#F5F5F5",
+        backgroundColor: theme.palette.primary.main,
         width: "10px"
       },
       "::-webkit-scrollbar-thumb": {
@@ -26,14 +26,14 @@ const useStyles = makeStyles({
       },
       "::-webkit-scrollbar-track": {
         "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.3)",
-        backgroundColor: "#F5F5F5"
+        backgroundColor: theme.palette.primary.main
       }
     },
     gridArea: "Router",
     height: "100%",
     zIndex: 0
   }
-});
+}));
 
 const Router: React.FunctionComponent = () => {
   const classes = useStyles();
