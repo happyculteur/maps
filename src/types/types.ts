@@ -28,6 +28,11 @@ interface IBasicInformation {
   category: userCategory;
   primary: string;
 }
+interface ISpaceOwner {
+  name: string;
+  uuid: string;
+  location: location;
+}
 export interface IInformation extends IBasicInformation {
   interests?: userInterest[];
   location: location;
@@ -37,6 +42,7 @@ export interface ISpace extends IBasicInformation {
   size: number;
   location: location;
   type: spaceType;
+  owner: ISpaceOwner;
 }
 export interface ITraining {
   isBilled: boolean;
@@ -47,6 +53,7 @@ export interface ITraining {
 export interface IIndividual extends IInformation {
   level: userLevel;
   hasSpace: boolean;
+  spaces: location[];
 }
 export interface IBeekeeper extends IInformation {
   seniority: number;
