@@ -39,30 +39,48 @@ const UserContextProvider: React.FunctionComponent = props => {
           primary: beekeeper.firstname
         } as IBeekeeper)
     );
+
     diff = _.differenceBy(beekeepers, userElements, "uuid");
 
     if (diff.length < numberToLoad) {
       let spaces = [] as ISpace[];
+      let spacesLocation = [] as Array<ISpace["location"]>;
+
       const individuals = individualData.map(individual => {
         const { spaces: spacesIndividual, ...rest } = individual;
         if (spacesIndividual) {
-          spaces = spaces.concat(
-            individual.spaces.map(
-              space =>
-                ({
-                  ...space,
-                  category: userCategory.space,
-                  primary: space.description
-                } as ISpace)
-            )
+          const { _spaces, _spacesLocation } = spacesIndividual.reduce(
+            (accumulator, space) => {
+              accumulator._spaces.push({
+                ...space,
+                category: userCategory.space,
+                owner: {
+                  location: individual.location,
+                  name: individual.firstname,
+                  uuid: individual.uuid
+                },
+                primary: space.description
+              } as ISpace);
+              accumulator._spacesLocation.push(space.location);
+
+              return accumulator;
+            },
+            {
+              _spaces: [] as ISpace[],
+              _spacesLocation: [] as Array<ISpace["location"]>
+            }
           );
+
+          spaces = spaces.concat(_spaces);
+          spacesLocation = _spacesLocation;
         }
 
         return {
           ...rest,
           category: userCategory.individual,
-          hasSpace: !!spacesIndividual,
-          primary: individual.firstname
+          hasSpace: !!individual.spaces.length,
+          primary: individual.firstname,
+          spaces: spacesLocation
         } as IIndividual;
       });
 

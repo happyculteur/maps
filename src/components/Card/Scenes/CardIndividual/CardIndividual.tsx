@@ -21,7 +21,8 @@ const CardIndividual: React.FunctionComponent<
     location,
     interests,
     level,
-    hasSpace
+    hasSpace,
+    spaces
   } = props.individual;
   const user = {
     category: userCategory.individual,
@@ -42,11 +43,11 @@ const CardIndividual: React.FunctionComponent<
   const renderActions = (className: string) => (
     // TODO: Action to define
     <>
-      <Button className={className} onClick={onClickGps}>
+      <Button className={className} onClick={focusMapOnLocation(location)}>
         <GpsFixed />
       </Button>
       {hasSpace && (
-        <Button className={className}>
+        <Button className={className} onClick={focusMapOnLocation(spaces[0])}>
           <Landscape />
         </Button>
       )}
@@ -56,10 +57,12 @@ const CardIndividual: React.FunctionComponent<
     </>
   );
 
-  const onClickGps: (
+  const focusMapOnLocation: (
+    locationToFocus: number[]
+  ) => (
     event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => void = event => {
-    setFocus(location);
+  ) => void = locationToFocus => event => {
+    setFocus(locationToFocus);
   };
 
   return (

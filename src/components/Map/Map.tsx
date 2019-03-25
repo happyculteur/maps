@@ -83,7 +83,7 @@ const Map: React.FunctionComponent<
       color,
       fillColor: color,
       fillOpacity: 0.5,
-      radius: 50
+      radius: 100
     })
       .addTo(map)
       .on("click", onClickCircle);
