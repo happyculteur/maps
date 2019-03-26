@@ -31,8 +31,8 @@ const Map: React.FunctionComponent<
 > = props => {
   const colors = {
     [userCategory.individual]: defaultTheme.palette.primary.main,
-    [userCategory.beekeeper]: defaultTheme.palette.secondary.main,
-    [userCategory.space]: defaultTheme.palette.primary.dark
+    [userCategory.beekeeper]: defaultTheme.palette.secondary.light,
+    [userCategory.space]: defaultTheme.palette.secondary.dark
   };
   const [map, setMap] = useState();
   const classes = useStyles();
