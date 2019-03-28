@@ -5,8 +5,8 @@ import PersonPin from "@material-ui/icons/PersonPin";
 import React from "react";
 import { Card } from "../../";
 import space from "../../../../assests/space.svg";
-import { UserContext } from "../../../../context/UserContext";
 import { ISpace, spaceType, userCategory } from "../../../../types";
+import { IActionsTrigger } from "../../Card";
 
 interface ICardSpaceOwnProps {
   space: ISpace;
@@ -20,7 +20,26 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
     primary: spaceType[type.toString()],
     uuid
   };
-  const { setFocus } = React.useContext(UserContext);
+  const email = {
+    body:
+      (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
+        process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY.replace(
+          "{{uuid}}",
+          user.uuid
+        ).replace(
+          "{{location}}",
+          `${user.location[0]} - ${user.location[1]}`
+        )) ||
+      "",
+    subject:
+      (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT &&
+        process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
+          "{{primary}}",
+          `${user.primary} of ${owner.name}`
+        ).replace("{{category}}", user.category)) ||
+      "",
+    to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
+  };
 
   const renderContent = (className: string) => (
     <div className={className}>
@@ -28,30 +47,28 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
       <Typography variant="subtitle1">Description : {description}</Typography>
     </div>
   );
-  const renderActions = (className: string) => (
+  const renderActions = (className: string, trigger: IActionsTrigger) => (
     <>
-      <Button className={className} onClick={focusMapOnLocation(location)}>
+      <Button
+        className={className}
+        onClick={trigger.focusMapOnLocation(location)}
+      >
         <GpsFixed />
       </Button>
       <Button
         className={className}
-        onClick={focusMapOnLocation(owner.location)}
+        onClick={trigger.focusMapOnLocation(owner.location)}
       >
         <PersonPin />
       </Button>
-      <Button className={className}>
+      <Button
+        className={className}
+        onClick={trigger.sendEmail(email.to, email.subject, email.body)}
+      >
         <Email />
       </Button>
     </>
   );
-
-  const focusMapOnLocation: (
-    locationToFocus: number[]
-  ) => (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => void = locationToFocus => event => {
-    setFocus(locationToFocus);
-  };
 
   return (
     <Card avatar={space} user={user} actions={renderActions}>

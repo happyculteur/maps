@@ -4,8 +4,8 @@ import GpsFixed from "@material-ui/icons/GpsFixed";
 import React from "react";
 import { Card } from "../../";
 import beekeeper from "../../../../assests/beekeeper.svg";
-import { UserContext } from "../../../../context/UserContext";
 import { IBeekeeper, userCategory, userLevel } from "../../../../types";
+import { IActionsTrigger } from "../../Card";
 
 interface ICardBeekeeperOwnProps {
   beekeeper: IBeekeeper;
@@ -29,7 +29,26 @@ const CardBeekeeper: React.FunctionComponent<
     primary,
     uuid
   };
-  const { setFocus } = React.useContext(UserContext);
+  const email = {
+    body:
+      (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
+        process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY.replace(
+          "{{uuid}}",
+          user.uuid
+        ).replace(
+          "{{location}}",
+          `${user.location[0]} - ${user.location[1]}`
+        )) ||
+      "",
+    subject:
+      (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT &&
+        process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
+          "{{primary}}",
+          user.primary
+        ).replace("{{category}}", user.category)) ||
+      "",
+    to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
+  };
 
   const renderContent = (className: string) => (
     <div className={className}>
@@ -55,23 +74,22 @@ const CardBeekeeper: React.FunctionComponent<
       </ul>
     </div>
   );
-  const renderActions = (className: string) => (
-    // TODO: Action to define
+  const renderActions = (className: string, trigger: IActionsTrigger) => (
     <>
-      <Button className={className} onClick={onClickGps}>
+      <Button
+        className={className}
+        onClick={trigger.focusMapOnLocation(location)}
+      >
         <GpsFixed />
       </Button>
-      <Button className={className}>
+      <Button
+        className={className}
+        onClick={trigger.sendEmail(email.to, email.subject, email.body)}
+      >
         <Email />
       </Button>
     </>
   );
-
-  const onClickGps: (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => void = event => {
-    setFocus(location);
-  };
 
   return (
     <Card

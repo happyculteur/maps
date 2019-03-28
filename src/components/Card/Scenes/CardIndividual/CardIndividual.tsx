@@ -5,8 +5,8 @@ import Landscape from "@material-ui/icons/Landscape";
 import React from "react";
 import { Card } from "../../";
 import individual from "../../../../assests/individual.svg";
-import { UserContext } from "../../../../context/UserContext";
 import { IIndividual, userCategory, userLevel } from "../../../../types";
+import { IActionsTrigger } from "../../Card";
 
 interface ICardIndividualOwnProps {
   individual: IIndividual;
@@ -31,7 +31,26 @@ const CardIndividual: React.FunctionComponent<
     primary,
     uuid
   };
-  const { setFocus } = React.useContext(UserContext);
+  const email = {
+    body:
+      (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
+        process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY.replace(
+          "{{uuid}}",
+          user.uuid
+        ).replace(
+          "{{location}}",
+          `${user.location[0]} - ${user.location[1]}`
+        )) ||
+      "",
+    subject:
+      (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT &&
+        process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
+          "{{primary}}",
+          user.primary
+        ).replace("{{category}}", user.category)) ||
+      "",
+    to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
+  };
 
   const renderContent = (className: string) => (
     <div className={className}>
@@ -40,30 +59,30 @@ const CardIndividual: React.FunctionComponent<
       </Typography>
     </div>
   );
-  const renderActions = (className: string) => (
-    // TODO: Action to define
+  const renderActions = (className: string, trigger: IActionsTrigger) => (
     <>
-      <Button className={className} onClick={focusMapOnLocation(location)}>
+      <Button
+        className={className}
+        onClick={trigger.focusMapOnLocation(location)}
+      >
         <GpsFixed />
       </Button>
       {hasSpace && (
-        <Button className={className} onClick={focusMapOnLocation(spaces[0])}>
+        <Button
+          className={className}
+          onClick={trigger.focusMapOnLocation(spaces[0])}
+        >
           <Landscape />
         </Button>
       )}
-      <Button className={className}>
+      <Button
+        className={className}
+        onClick={trigger.sendEmail(email.to, email.subject, email.body)}
+      >
         <Email />
       </Button>
     </>
   );
-
-  const focusMapOnLocation: (
-    locationToFocus: number[]
-  ) => (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => void = locationToFocus => event => {
-    setFocus(locationToFocus);
-  };
 
   return (
     <Card avatar={individual} user={user} actions={renderActions}>
