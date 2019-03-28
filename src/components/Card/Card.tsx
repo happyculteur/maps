@@ -66,8 +66,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+export interface IActionsTrigger {
+  focusMapOnLocation: (
+    locationToFocus: number[]
+  ) => (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  sendEmail: (
+    to: string,
+    subject: string,
+    body: string
+  ) => (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
 interface ICardOwnProps {
-  actions: (className: string) => {};
+  actions: (className: string, trigger: IActionsTrigger) => {};
   avatar: string;
   children: (className: string) => JSX.Element;
   isPartner?: boolean;
@@ -76,7 +87,7 @@ interface ICardOwnProps {
 
 const Card: React.FunctionComponent<ICardOwnProps> = props => {
   const classes = useStyles();
-  const { focus } = React.useContext(UserContext);
+  const { focus, setFocus } = React.useContext(UserContext);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -96,6 +107,30 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
     }
   }, [focus]);
 
+  const focusMapOnLocation: (
+    locationToFocus: number[]
+  ) => (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => void = locationToFocus => event => {
+    setFocus(locationToFocus);
+  };
+  const sendEmail: (
+    to: string,
+    subject: string,
+    body: string
+  ) => (event: React.MouseEvent<HTMLElement, MouseEvent>) => void = (
+    to,
+    subject,
+    body
+  ) => event => {
+    window.open(`mailto:${to}?subject=${subject}&body=${body}`);
+  };
+
+  const actionsTrigger = {
+    focusMapOnLocation,
+    sendEmail
+  };
+
   return (
     <MuiCard
       className={
@@ -106,7 +141,7 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
     >
       <div className={classes.CardHeader} ref={ref}>
         <div className={classes.avatar}>
-          <Avatar alt="Happyculteur partner!" src={props.avatar} />
+          <Avatar src={props.avatar} />
         </div>
         <div className={classes.title}>
           <Typography variant="h5" className={classes.primary}>
@@ -141,7 +176,9 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           </>
         )}
       </CardContent>
-      <div className={classes.CardActions}>{props.actions(classes.button)}</div>
+      <div className={classes.CardActions}>
+        {props.actions(classes.button, actionsTrigger)}
+      </div>
     </MuiCard>
   );
 };
