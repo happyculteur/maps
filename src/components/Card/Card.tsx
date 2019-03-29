@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/styles";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
 import badge from "../../assests/ispartner.svg";
-import { UserContext } from "../../context/UserContext";
+import { UsersContext } from "../../context/UsersContext";
 import { IInformation, userInterest } from "../../types";
 
 const useStyles = makeStyles(theme => ({
@@ -87,7 +87,7 @@ interface ICardOwnProps {
 
 const Card: React.FunctionComponent<ICardOwnProps> = props => {
   const classes = useStyles();
-  const { focus, setFocus } = React.useContext(UserContext);
+  const { focus, setFocus } = React.useContext(UsersContext);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

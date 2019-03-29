@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { defaultTheme } from "../../configuration/materialUi";
-import { UserContext } from "../../context/UserContext";
+import { UsersContext } from "../../context/UsersContext";
 import { userCategory, userType } from "../../types";
 import boundaries from "./boundaries.json";
 
@@ -36,7 +36,7 @@ const Map: React.FunctionComponent<
   };
   const [map, setMap] = useState();
   const classes = useStyles();
-  const { userElements, focus, setFocus } = React.useContext(UserContext);
+  const { userElements, focus, setFocus } = React.useContext(UsersContext);
 
   useEffect(() => {
     drawMap();

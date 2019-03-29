@@ -37,6 +37,19 @@ export interface IInformation extends IBasicInformation {
   interests?: userInterest[];
   location: location;
 }
+export interface ITraining {
+  isBilled: boolean;
+  isPartner: boolean;
+  targets: userLevel[];
+}
+
+export interface ISpaceRAW {
+  uuid: string;
+  type: spaceType;
+  size: number;
+  description: string;
+  location: location;
+}
 export interface ISpace extends IBasicInformation {
   description: string;
   size: number;
@@ -44,16 +57,32 @@ export interface ISpace extends IBasicInformation {
   type: spaceType;
   owner: ISpaceOwner;
 }
-export interface ITraining {
-  isBilled: boolean;
-  isPartner: boolean;
-  targets: userLevel[];
-}
 
+export interface IIndividualRAW {
+  uuid: string;
+  firstname: string;
+  location: location;
+  interests: userInterest[];
+  level: userLevel;
+  spaces: ISpaceRAW[];
+}
 export interface IIndividual extends IInformation {
   level: userLevel;
   hasSpace: boolean;
   spaces: location[];
+}
+
+export interface IBeekeeperRAW {
+  uuid: string;
+  firstname: string;
+  location: location;
+  seniority: number;
+  interests: userInterest[];
+  training: {
+    isBilled: boolean;
+    targets: userLevel[];
+    isPartner: boolean;
+  };
 }
 export interface IBeekeeper extends IInformation {
   seniority: number;

@@ -4,7 +4,7 @@ import classnames from "classnames";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { SyncLoader } from "react-spinners";
-import { UserContext } from "../../context/UserContext";
+import { UsersContext } from "../../context/UsersContext";
 import {
   IBeekeeper,
   IIndividual,
@@ -37,7 +37,7 @@ const CardList: React.FunctionComponent<
   ICardListOwnProps & RouteComponentProps
 > = props => {
   const classes = useStyles();
-  const { load, userElements } = React.useContext(UserContext);
+  const { load, userElements } = React.useContext(UsersContext);
 
   const userRender = {
     [userCategory.individual]: (data: IIndividual) => (
