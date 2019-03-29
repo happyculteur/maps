@@ -2,15 +2,16 @@ import _ from "lodash";
 import React from "react";
 import {
   IBeekeeper,
+  IBeekeeperRAW,
   IIndividual,
+  IIndividualRAW,
   ISpace,
+  ISpaceRAW,
   userCategory,
   userType
 } from "../../types";
-import beekeeperData from "./beekeeperData.json";
-import individualData from "./individualData.json";
 
-export let UserContext = React.createContext({
+export let UsersContext = React.createContext({
   focus: [] as number[],
   load: (numberToLoad: number) => Promise.resolve(),
   setFocus: (value: number[]) => {
@@ -19,7 +20,7 @@ export let UserContext = React.createContext({
   userElements: [] as userType[]
 });
 
-const UserContextProvider: React.FunctionComponent = props => {
+const UsersContextProvider: React.FunctionComponent = props => {
   const initialData: userType[] = [];
   const [userElements, setUserElements] = React.useState(initialData);
   const [focus, setFocusValue] = React.useState([] as number[]);
@@ -31,8 +32,23 @@ const UserContextProvider: React.FunctionComponent = props => {
   const load: (numberToLoad: number) => Promise<void> = async numberToLoad => {
     let diff;
     const data: userType[] = [];
+    const beekeeperURL = process.env.REACT_APP_HAPPYCULTEUR_DATA_BEEKEPER || "";
+    const individualURL =
+      process.env.REACT_APP_HAPPYCULTEUR_DATA_INDIVIDUAL || "";
+
+    const beekeeperData = await (await fetch(
+      beekeeperURL === ""
+        ? `${process.env.PUBLIC_URL}/beekeeperData.json`
+        : beekeeperURL
+    )).json();
+    const individualData = await (await fetch(
+      individualURL === ""
+        ? `${process.env.PUBLIC_URL}/individualData.json`
+        : individualURL
+    )).json();
+
     const beekeepers: IBeekeeper[] = beekeeperData.map(
-      beekeeper =>
+      (beekeeper: IBeekeeperRAW) =>
         ({
           ...beekeeper,
           category: userCategory.beekeeper,
@@ -46,11 +62,12 @@ const UserContextProvider: React.FunctionComponent = props => {
       let spaces = [] as ISpace[];
       let spacesLocation = [] as Array<ISpace["location"]>;
 
-      const individuals = individualData.map(individual => {
+      const individuals = individualData.map((individual: IIndividualRAW) => {
         const { spaces: spacesIndividual, ...rest } = individual;
+
         if (spacesIndividual) {
           const { _spaces, _spacesLocation } = spacesIndividual.reduce(
-            (accumulator, space) => {
+            (accumulator, space: ISpaceRAW) => {
               accumulator._spaces.push({
                 ...space,
                 category: userCategory.space,
@@ -103,10 +120,10 @@ const UserContextProvider: React.FunctionComponent = props => {
   };
 
   return (
-    <UserContext.Provider value={initialValue}>
+    <UsersContext.Provider value={initialValue}>
       {props.children}
-    </UserContext.Provider>
+    </UsersContext.Provider>
   );
 };
 
-export default UserContextProvider;
+export default UsersContextProvider;
