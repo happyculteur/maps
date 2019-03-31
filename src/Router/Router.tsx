@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Router as ReachRouter } from "@reach/router";
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { MapAndCardList } from "../pages/MapAndCardList";
+import { MapAndCardList, Thanks } from "../pages";
 
 const useStyles = makeStyles(theme => ({
   Router: {
@@ -41,6 +41,7 @@ const Router: React.FunctionComponent = () => {
   return (
     <ReachRouter className={classes.Router}>
       <MapAndCardList default={true} path="/" />
+      <Thanks path="thanks" />
     </ReachRouter>
   );
 };
