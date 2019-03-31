@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { Link } from "@reach/router";
 import React from "react";
 
 const useStyles = makeStyles(theme => ({
@@ -78,6 +79,13 @@ const Footer: React.FunctionComponent = () => {
           <a className={classes.link} href="">
             MENTIONS LEGALES
           </a>
+        </Typography>
+      </div>
+      <div>
+        <Typography variant="overline">
+          <Link className={classes.link} to="thanks">
+            SPECIAL THANKS
+          </Link>
         </Typography>
       </div>
       <div className={classes.Social}>
