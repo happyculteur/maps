@@ -6,7 +6,7 @@ import React from "react";
 
 const useStyles = makeStyles(theme => ({
   Footer: {
-    alignItems: "center",
+    alignItems: "flex-end",
     backgroundColor: theme.palette.primary.main,
     borderRadius: "2px",
     boxShadow: `
@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
     `,
     display: "flex",
     gridArea: "Footer",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
+    padding: "0 5px",
     zIndex: 2
   },
   LinkIconIcon: {
@@ -27,8 +28,7 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none"
   },
   Social: {
-    alignContent: "center",
-    alignItems: "center",
+    alignSelf: "center",
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
@@ -69,14 +69,20 @@ const Footer: React.FunctionComponent = () => {
     <div className={classes.Footer}>
       <div>
         <Typography variant="overline">
-          <a className={classes.link} href="">
+          <a
+            className={classes.link}
+            href={process.env.REACT_APP_HAPPYCULTEUR_LINK_COPYRIGHT}
+          >
             HAPPYCULTEUR © COPYRIGHT 2019. TOUS DROITS RESERVES
           </a>
         </Typography>
       </div>
       <div>
         <Typography variant="overline">
-          <a className={classes.link} href="">
+          <a
+            className={classes.link}
+            href={process.env.REACT_APP_HAPPYCULTEUR_LINK_LEGAL}
+          >
             MENTIONS LEGALES
           </a>
         </Typography>
