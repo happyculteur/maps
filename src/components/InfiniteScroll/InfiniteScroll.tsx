@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 import React, { ReactElement, useEffect, useState } from "react";
@@ -9,6 +10,10 @@ const useStyles = makeStyles({
   InfiniteScroll: {
     height: "100%",
     overflow: "auto"
+  },
+  error: {
+    border: "5px solid red",
+    color: "red"
   },
   information: {
     height: "20%",
@@ -76,8 +81,16 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
       {props.elements.map(props.children)}
       <div className={classes.information}>
         {!error && !isLoading && <ScrollIcon />}
-        {error && (props.errorElement || <div>{error}</div>)}
-        {isLoading && (props.loaderElement || <div>Loading...</div>)}
+        {error &&
+          (props.errorElement || (
+            <Typography variant="overline" className={classes.error}>
+              {error}
+            </Typography>
+          ))}
+        {isLoading &&
+          (props.loaderElement || (
+            <Typography variant="overline">...Loading</Typography>
+          ))}
       </div>
     </div>
   );
