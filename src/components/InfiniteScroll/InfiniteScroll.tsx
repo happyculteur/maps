@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 interface IInfiniteScrollProps {
   children: (element: any) => JSX.Element;
-  className: string;
+  className?: string;
   elements: userType[];
   errorElement?: ReactElement;
   load: (numberToLoad: number) => Promise<void>;
@@ -73,6 +73,7 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
     }
   };
 
+  /* TODO: Translation */
   return (
     <div
       className={classnames(classes.InfiniteScroll, props.className)}

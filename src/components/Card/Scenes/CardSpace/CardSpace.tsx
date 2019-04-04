@@ -13,13 +13,23 @@ interface ICardSpaceOwnProps {
 }
 
 const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
-  const { uuid, location, description, type, size, owner } = props.space;
+  const {
+    uuid,
+    location,
+    description,
+    isVisible,
+    type,
+    size,
+    owner
+  } = props.space;
   const user = {
     category: userCategory.space,
+    isVisible,
     location,
-    primary: spaceType[type.toString()],
+    primary: spaceType[type],
     uuid
   };
+  // TODO: Translation
   const email = {
     body:
       (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
@@ -36,11 +46,12 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
         process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
           "{{primary}}",
           `${user.primary} of ${owner.name}`
-        ).replace("{{category}}", user.category)) ||
+        ).replace("{{category}}", userCategory[user.category])) ||
       "",
     to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
   };
 
+  // TODO: Translation
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">Size : {size}</Typography>

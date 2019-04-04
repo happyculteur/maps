@@ -19,16 +19,19 @@ const CardBeekeeper: React.FunctionComponent<
     primary,
     location,
     interests,
+    isVisible,
     seniority,
     training: { isPartner, isBilled, targets }
   } = props.beekeeper;
   const user = {
     category: userCategory.beekeeper,
     interests,
+    isVisible,
     location,
     primary,
     uuid
   };
+  // TODO: Translation
   const email = {
     body:
       (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
@@ -45,11 +48,12 @@ const CardBeekeeper: React.FunctionComponent<
         process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
           "{{primary}}",
           user.primary
-        ).replace("{{category}}", user.category)) ||
+        ).replace("{{category}}", userCategory[user.category])) ||
       "",
     to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
   };
 
+  // TODO: Translation
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">Since: {seniority} years</Typography>
@@ -65,9 +69,7 @@ const CardBeekeeper: React.FunctionComponent<
             Public:{" "}
             {targets.map(
               (target, index) =>
-                `${userLevel[target.toString()]}${
-                  index < targets.length - 1 ? ", " : "."
-                }`
+                `${userLevel[target]}${index < targets.length - 1 ? ", " : "."}`
             )}
           </Typography>
         </li>

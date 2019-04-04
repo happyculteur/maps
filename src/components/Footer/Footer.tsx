@@ -65,6 +65,7 @@ const useStyles = makeStyles(theme => ({
 const Footer: React.FunctionComponent = () => {
   const classes = useStyles();
 
+  /* TODO: Translation */
   return (
     <div className={classes.Footer}>
       <div>
