@@ -1,25 +1,25 @@
 export enum userLevel {
-  "Débutant",
-  "Confirmé",
-  "Expert"
+  Beginner,
+  Medium,
+  Expert
 }
 export enum userCategory {
-  individual = "Particulier",
-  beekeeper = "Apiculteur",
-  space = "Espace"
+  individual,
+  beekeeper,
+  space
 }
 export enum userInterest {
-  "Transmettre son savoir",
-  "Poser des ruches",
-  "Vendre du miel",
-  "Apprendre",
-  "Proposer un/des espace/s"
+  Teach,
+  Install,
+  Sell,
+  Learn,
+  FreeSpace
 }
 export enum spaceType {
-  "Jardin",
-  "Terrasse",
-  "Toit",
-  "Prairie"
+  Garden,
+  Terrace,
+  Roof,
+  Meadow
 }
 type location = number[];
 
@@ -27,6 +27,7 @@ interface IBasicInformation {
   uuid: string;
   category: userCategory;
   primary: string;
+  isVisible: boolean;
 }
 interface ISpaceOwner {
   name: string;

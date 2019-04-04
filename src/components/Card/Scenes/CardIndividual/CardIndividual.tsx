@@ -20,6 +20,7 @@ const CardIndividual: React.FunctionComponent<
     primary,
     location,
     interests,
+    isVisible,
     level,
     hasSpace,
     spaces
@@ -27,10 +28,12 @@ const CardIndividual: React.FunctionComponent<
   const user = {
     category: userCategory.individual,
     interests,
+    isVisible,
     location,
     primary,
     uuid
   };
+  // TODO: Translation
   const email = {
     body:
       (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
@@ -47,15 +50,16 @@ const CardIndividual: React.FunctionComponent<
         process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
           "{{primary}}",
           user.primary
-        ).replace("{{category}}", user.category)) ||
+        ).replace("{{category}}", userCategory[user.category])) ||
       "",
     to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
   };
 
+  // TODO: Translation
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">
-        Experience: {userLevel[level.toString()]}
+        Experience: {userLevel[level]}
       </Typography>
     </div>
   );

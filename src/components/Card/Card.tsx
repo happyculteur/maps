@@ -9,7 +9,7 @@ import _ from "lodash";
 import React, { useEffect, useRef } from "react";
 import badge from "../../assests/ispartner.svg";
 import { UsersContext } from "../../context/UsersContext";
-import { IInformation, userInterest } from "../../types";
+import { IInformation, userCategory, userInterest } from "../../types";
 
 const useStyles = makeStyles(theme => ({
   Card: {
@@ -17,7 +17,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
     margin: "10px",
-    transition: "all 0.30s ease-in-out"
+    maxHeight: "50%",
+    opacity: 1,
+    transition: "opacity 1s, max-height 1s, margin 1s"
   },
   CardActions: {
     borderTop: `2px solid ${theme.palette.secondary.main}`,
@@ -54,6 +56,12 @@ const useStyles = makeStyles(theme => ({
   },
   focus: {
     border: `3px solid ${theme.palette.secondary.main}`
+  },
+  invisible: {
+    margin: 0,
+    maxHeight: "0px",
+    opacity: 0,
+    transition: "opacity 1s, max-height 1s, margin 1s"
   },
   primary: {
     maxWidth: "12vw",
@@ -133,11 +141,8 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
 
   return (
     <MuiCard
-      className={
-        _.isEqual(props.user.location, focus)
-          ? `${classes.Card} ${classes.focus}`
-          : classes.Card
-      }
+      className={`${classes.Card} ${_.isEqual(props.user.location, focus) &&
+        classes.focus} ${!props.user.isVisible && classes.invisible}`}
     >
       <div className={classes.CardHeader} ref={ref}>
         <div className={classes.avatar}>
@@ -147,10 +152,14 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           <Typography variant="h5" className={classes.primary}>
             {props.user.primary}
           </Typography>
-          <Typography variant="body1">{props.user.category}</Typography>
+          {/* TODO: Translation */}
+          <Typography variant="body1">
+            {userCategory[props.user.category]}
+          </Typography>
         </div>
         <div className={classes.avatar}>
           {props.isPartner && (
+            // TODO: Translation
             <Avatar alt="Happyculteur partner!" src={badge} />
           )}
         </div>
@@ -161,12 +170,14 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           <>
             <div className={classes.content}>
               <Typography variant="subtitle1">
+                {/* TODO: Translation */}
                 <span>Interest:</span>
                 <ul>
                   {props.user.interests.map((interest, index) => (
                     <li key={index}>
                       <Typography variant="subtitle2">
-                        {userInterest[interest.toString()]}
+                        {/* TODO: Translation */}
+                        {userInterest[interest]}
                       </Typography>
                     </li>
                   ))}

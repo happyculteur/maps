@@ -80,6 +80,7 @@ const ScrollIcon: React.FunctionComponent = () => {
         <div className={classes.wheel} />
       </div>
       <Typography variant="overline" color="inherit">
+        {/* TODO: Translation */}
         Scroll to load more
       </Typography>
       <div className={classes.iconArrows} />

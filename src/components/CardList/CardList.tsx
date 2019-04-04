@@ -13,6 +13,7 @@ import {
   userType
 } from "../../types";
 import { CardBeekeeper, CardIndividual, CardSpace } from "../Card/Scenes";
+import { Filter } from "../Filter";
 import { InfiniteScroll } from "../InfiniteScroll";
 
 const useStyles = makeStyles({
@@ -26,7 +27,8 @@ const useStyles = makeStyles({
     height: "100%",
     justifyContent: "center",
     width: "100%"
-  }
+  },
+  InfiniteScroll: {}
 });
 
 interface ICardListOwnProps {
@@ -52,17 +54,20 @@ const CardList: React.FunctionComponent<
   };
 
   return (
-    <InfiniteScroll
-      numberToLoad={3}
-      load={load}
-      elements={userElements}
-      className={classnames(classes.CardList, props.className)}
-      loaderElement={<SyncLoader />}
-    >
-      {(data: userType) => {
-        return userRender[data.category](data as any);
-      }}
-    </InfiniteScroll>
+    <div className={classnames(classes.CardList, props.className)}>
+      <Filter />
+      <InfiniteScroll
+        className={classes.InfiniteScroll}
+        numberToLoad={3}
+        load={load}
+        elements={userElements}
+        loaderElement={<SyncLoader />}
+      >
+        {(data: userType) => {
+          return userRender[data.category](data as any);
+        }}
+      </InfiniteScroll>
+    </div>
   );
 };
 
