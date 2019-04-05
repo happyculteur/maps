@@ -22,7 +22,7 @@
     "@types/leaflet": "1.4.3",
     "@types/lodash": "4.14.123",
     "@types/material-ui": "0.21.6",
-    "@types/node": "11.13.0",
+    "@types/node": "11.13.2",
     "@types/raven": "2.5.3",
     "@types/reach__router": "1.2.3",
     "@types/react": "16.8.13",
@@ -43,8 +43,8 @@
     "react-markdown": "4.0.6",
     "react-scripts": "2.1.8",
     "react-spinners": "0.5.4",
-    "react-toastify": "4.5.2",
-    "typescript": "3.4.2",
+    "react-toastify": "5.0.0",
+    "typescript": "3.4.3",
     "uuid": "3.3.2"
   },
   "scripts": {
