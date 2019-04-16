@@ -21,12 +21,12 @@ addons:
   apt:
     update: true
 deploy:
-  - provider: script
-    script: bash travis-scripts/sync.sh $TRAVIS_BRANCH
-    on:
-      branches:
-        - master
-        - dev
+- provider: script
+  script: bash travis-scripts/sync.sh $TRAVIS_BRANCH
+  branches:
+    only:
+    - master
+    - dev
 after_success:
 - npm run test-with-coverage
 - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release
