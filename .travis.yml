@@ -21,12 +21,22 @@ addons:
   apt:
     update: true
 deploy:
-  - provider: script
-    script: bash travis-scripts/sync.sh $TRAVIS_BRANCH
-    on:
-      branches:
-        - master
-        - dev
+#  - provider: s3
+#    access_key_id: "$AWS_ACCESS_KEY_ID"
+#    secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+#    bucket: "s3-eu-west-3.amazonaws.com/dev.app.happyculteur.co"
+  provider: script
+  script: bash travis-scripts/sync.sh dev
+  skip_cleanup: true
+  on:
+    branch: dev
+# - provider: s3
+#   access_key_id: "$AWS_ACCESS_KEY_ID"
+#   secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+#   bucket: "app.happyculteur.co"
+#   skip_cleanup: true
+#   on:
+#     branch: master
 after_success:
 - npm run test-with-coverage
 - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ~/semantic-release
