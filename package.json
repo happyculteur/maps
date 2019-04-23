@@ -29,7 +29,7 @@
     "react-helmet": "5.2.0",
     "react-i18next": "10.2.0",
     "react-router-dom": "4.3.1",
-    "react-scripts": "2.1.5",
+    "react-scripts": "3.0.0",
     "recompose": "0.30.0",
     "typescript": "3.3.3333"
   },
