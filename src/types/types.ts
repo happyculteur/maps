@@ -9,11 +9,9 @@ export enum userCategory {
   space
 }
 export enum userInterest {
-  Teach,
   Install,
-  Sell,
   Learn,
-  FreeSpace
+  Teach
 }
 export enum spaceType {
   Garden,
