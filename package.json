@@ -31,7 +31,8 @@
     "react-router-dom": "4.3.1",
     "react-scripts": "2.1.5",
     "recompose": "0.30.0",
-    "typescript": "3.3.3333"
+    "typescript": "3.3.3333",
+    "snyk": "^1.189.0"
   },
   "scripts": {
     "build": "react-scripts build",
@@ -44,7 +45,9 @@
     "test": "react-scripts test --env=jsdom",
     "tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "test-with-coverage": "react-scripts test --env=jsdom --coverage && cat ./coverage/lcov.info | codacy-coverage",
-    "test:debug": "react-scripts --inspect-brk test --env=jsdom --runInBand --no-cache --no-watch "
+    "test:debug": "react-scripts --inspect-brk test --env=jsdom --runInBand --no-cache --no-watch ",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -86,5 +89,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "snyk": true
 }
