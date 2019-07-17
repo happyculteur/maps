@@ -30,7 +30,7 @@ Agreement](https://github.com/Happyculteur/maps/blob/master/CLA.md).
 
 ## Setting up your development environment
 
-If you haven’t set up your environment, just clone the repo and `npm -i`. All
+If you haven’t set up your environment, just clone the repo and install the dependencies with `npm install`. All
 scripts are sat up in the `package.json`.
 
 ## Community Expectations and Roles
@@ -38,5 +38,3 @@ scripts are sat up in the `package.json`.
 Happyculteur is an association, so is driven by the community and a few regular
 volonteers on the Maps development. It is wholly dependent on its community to
 provide a productive, friendly and collaborative environment.
-
-

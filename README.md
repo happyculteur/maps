@@ -59,4 +59,4 @@ We commit to keeping the breaking changes minimal so you can upgrade `react-scri
 
 ## Contributing
 
-[Here](https://github.com/happyculteur/maps/blob/master/docs/CONTRIBUTING.md)
+[Here](https://github.com/happyculteur/maps/blob/master/CONTRIBUTING.md)
