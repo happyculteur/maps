@@ -8,7 +8,7 @@ import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
-import badge from "../../assests/ispartner.svg";
+import badge from "../../assests/badge.svg";
 import { UsersContext } from "../../context/UsersContext";
 import { IInformation, userCategory, userInterest } from "../../types";
 
