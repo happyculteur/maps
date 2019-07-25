@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
     width: "auto"
   },
   empty: {
-    flexGrow: 1
+    flexGrow: 0.435
   }
 }));
 
