@@ -4,6 +4,7 @@ import {
   CardContent,
   Typography
 } from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
@@ -11,7 +12,7 @@ import badge from "../../assests/ispartner.svg";
 import { UsersContext } from "../../context/UsersContext";
 import { IInformation, userCategory, userInterest } from "../../types";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   Card: {
     alignItems: "center",
     display: "flex",
@@ -76,7 +77,7 @@ const useStyles = makeStyles(theme => ({
 
 export interface IActionsTrigger {
   focusMapOnLocation: (
-    locationToFocus: number[]
+    locationToFocus: [number, number]
   ) => (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   sendEmail: (
     to: string,
@@ -113,10 +114,10 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           cardRef.offsetHeight * 2
       });
     }
-  }, [focus]);
+  }, [focus, props.user.location]);
 
   const focusMapOnLocation: (
-    locationToFocus: number[]
+    locationToFocus: [number, number]
   ) => (
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => void = locationToFocus => event => {

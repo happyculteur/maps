@@ -2,14 +2,15 @@ import { makeStyles } from "@material-ui/styles";
 import { RouteComponentProps } from "@reach/router";
 import classnames from "classnames";
 import { GeoJsonObject } from "geojson";
-import L, { LeafletEvent } from "leaflet";
+import L, { LeafletEvent, Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { defaultTheme } from "../../configuration/materialUi";
 import { UsersContext } from "../../context/UsersContext";
-import { userCategory, userType } from "../../types";
+import { userType } from "../../types";
 import boundaries from "./boundaries.json";
+import { IColors } from "./types";
+import { colors } from "./utils";
 
 const useStyles = makeStyles({
   Map: {
@@ -29,30 +30,11 @@ interface IMapOwnProps {
 const Map: React.FunctionComponent<
   IMapOwnProps & RouteComponentProps
 > = props => {
-  const colors = {
-    [userCategory.individual]: defaultTheme.palette.primary.main,
-    [userCategory.beekeeper]: defaultTheme.palette.secondary.light,
-    [userCategory.space]: defaultTheme.palette.secondary.dark
-  };
-  const [map, setMap] = useState();
+  const [map, setMap] = useState<LeafletMap>();
   const classes = useStyles();
   const { userElements, focus, setFocus } = React.useContext(UsersContext);
 
-  useEffect(() => {
-    drawMap();
-  }, []);
-  useEffect(() => {
-    if (userElements.length && map) {
-      userElements.forEach(drawCircle);
-    }
-  }, [map, userElements]);
-  useEffect(() => {
-    if (focus.length && map) {
-      map.setView(focus, 15);
-    }
-  }, [map, focus]);
-
-  const drawMap = () => {
+  const drawMap = useCallback(() => {
     try {
       const osmURL = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
       const attribution =
@@ -76,23 +58,45 @@ const Map: React.FunctionComponent<
     } catch (error) {
       toast.error(error);
     }
-  };
-  const drawCircle = (element: userType) => {
-    const color = colors[element.category];
-    L.circle([element.location[0], element.location[1]], {
-      color,
-      fillColor: color,
-      fillOpacity: 0.5,
-      radius: 100
-    })
-      .addTo(map)
-      .on("click", onClickCircle);
-  };
+  }, []);
+  const onClickCircle = useCallback(
+    (event: LeafletEvent) => {
+      const { lat, lng } = event.target._latlng;
+      setFocus([lat, lng]);
+    },
+    [setFocus]
+  );
+  const drawCircle = useCallback(
+    (element: userType, mapToDrawOn: LeafletMap, selectedColors: IColors) => {
+      const color = selectedColors[element.category];
+      L.circle([element.location[0], element.location[1]], {
+        color,
+        fillColor: color,
+        fillOpacity: 0.5,
+        radius: 100
+      })
+        .addTo(mapToDrawOn)
+        .on("click", onClickCircle);
 
-  const onClickCircle: (event: LeafletEvent) => void = event => {
-    const { lat, lng } = event.target._latlng;
-    setFocus([lat, lng]);
-  };
+      // TODO: Bug type do not let us remove the deps array, but eslint is angry about it being empty
+      // eslint-disable-next-line
+    },
+    [onClickCircle]
+  );
+
+  useEffect(() => {
+    drawMap();
+  }, [drawMap]);
+  useEffect(() => {
+    if (userElements.length && map) {
+      userElements.forEach(userElement => drawCircle(userElement, map, colors));
+    }
+  }, [map, userElements, drawCircle]);
+  useEffect(() => {
+    if (focus[0] !== -1 && focus[1] !== -1 && map) {
+      map.setView(focus, 15);
+    }
+  }, [map, focus]);
 
   return (
     <div className={classnames(classes.Map, props.className)}>

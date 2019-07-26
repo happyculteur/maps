@@ -1,11 +1,12 @@
 import { Typography } from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 
 // Thanks to Geoffrey Crofte for the animation
 // From https://codepen.io/GeoffreyCrofte/pen/dYpObx
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   "@keyframes mouse-scroll": {
     "0%": {
       opacity: 0

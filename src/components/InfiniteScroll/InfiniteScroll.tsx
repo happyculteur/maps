@@ -1,7 +1,14 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState
+} from "react";
 import { usePrevious } from "../../hooks";
 import { userType } from "../../types";
 import { ScrollIcon } from "../ScrollIcon";
@@ -38,25 +45,30 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
   const prevElements = usePrevious(props.elements);
   const classes = useStyles();
 
-  useEffect(() => {
-    if (prevElements === undefined) {
-      loadElements();
-    }
-  }, [prevElements]);
+  const loadElements = useCallback(
+    async (
+      {
+        load,
+        numberToLoad
+      }: {
+        load: (numberToLoad: number) => Promise<void>;
+        numberToLoad: number;
+      },
+      dispatchLoading: Dispatch<SetStateAction<boolean>>,
+      dispatchError: Dispatch<SetStateAction<boolean>>
+    ) => {
+      dispatchLoading(true);
 
-  const loadElements = async () => {
-    setIsLoading(true);
-
-    try {
-      const { load, numberToLoad } = props;
-
-      await load(numberToLoad);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      try {
+        await load(numberToLoad);
+      } catch (error) {
+        dispatchError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 
   const onWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     if (error || isLoading) {
@@ -69,9 +81,15 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
       eventTarget.offsetHeight + eventTarget.scrollTop >=
       eventTarget.scrollHeight
     ) {
-      loadElements();
+      loadElements(props, setIsLoading, setError);
     }
   };
+
+  useEffect(() => {
+    if (prevElements === undefined) {
+      loadElements(props, setIsLoading, setError);
+    }
+  }, [prevElements, loadElements, props]);
 
   /* TODO: Translation */
   return (

@@ -14,9 +14,6 @@ const defaultTheme = createMuiTheme({
       light: "#ffff54",
       main: "#f8cf0b"
     }
-  },
-  typography: {
-    useNextVariants: true
   }
 });
 

@@ -1,10 +1,12 @@
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import { RouteComponentProps } from "@reach/router";
 import React from "react";
 import { CardList } from "../../components/CardList";
 import { Map } from "../../components/Map";
 import { UsersContextProvider } from "../../context/UsersContext";
-const useStyles = makeStyles(theme => ({
+
+const useStyles = makeStyles((theme: Theme) => ({
   CardList: {
     boxShadow: "-3px 0 30px -8px #444",
     zIndex: 1

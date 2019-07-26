@@ -1,9 +1,10 @@
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 import React from "react";
 import "./ThanksIcon.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   square: {
     aligItems: "center",
     borderRadius: "12px",
