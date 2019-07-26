@@ -18,7 +18,7 @@ function useFetch(
         returnType === typeReturned.TEXT ? response.text() : response.json()
       )
       .then(responseData => setData(responseData));
-  }, [valueToWatch]);
+  }, [valueToWatch, url, returnType]);
 
   return data;
 }

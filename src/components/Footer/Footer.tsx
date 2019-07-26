@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Typography } from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "@reach/router";
 import React from "react";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   Footer: {
     alignItems: "flex-end",
     backgroundColor: theme.palette.primary.main,

@@ -21,7 +21,7 @@ export enum spaceType {
   Roof,
   Meadow
 }
-type location = number[];
+type location = [number, number];
 
 interface IBasicInformation {
   uuid: string;

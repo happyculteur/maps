@@ -1,11 +1,12 @@
 import { AppBar as MuiAppBar, Button, Toolbar } from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "@reach/router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import logo from "../../assests/happyculteur-logo.png";
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme: Theme) => ({
   AppBar: {
     flexGrow: 1,
     gridArea: "AppBar",

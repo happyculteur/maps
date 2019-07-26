@@ -1,10 +1,11 @@
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import { Router as ReachRouter } from "@reach/router";
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { MapAndCardList, Thanks } from "../pages";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   Router: {
     "@global": {
       "::-webkit-scrollbar": {

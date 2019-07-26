@@ -1,4 +1,5 @@
 import { Avatar, Paper, Switch } from "@material-ui/core";
+import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
 import beekeeperIcon from "../../assests/beekeeper.svg";
@@ -6,7 +7,7 @@ import individualIcon from "../../assests/individual.svg";
 import spaceIcon from "../../assests/space.svg";
 import { UsersContext } from "../../context/UsersContext";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   Filter: {
     alignItems: "center",
     backgroundColor: theme.palette.primary.main,
@@ -32,7 +33,9 @@ const Filter: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
+    // TODO: A bug to fix about useEffect and setFilter props from context but if set break app
     setFilter({ beekeeper, individual, space });
+    // eslint-disable-next-line
   }, [beekeeper, individual, space]);
 
   const toggleSwitch: (

@@ -12,7 +12,7 @@ import {
 } from "../../types";
 
 export let UsersContext = React.createContext({
-  focus: [] as number[],
+  focus: [-1, -1] as [number, number],
   load: (numberToLoad: number) => Promise.resolve(),
   setFilter: (value: {
     beekeeper: boolean;
@@ -21,7 +21,7 @@ export let UsersContext = React.createContext({
   }) => {
     return;
   },
-  setFocus: (value: number[]) => {
+  setFocus: (value: [number, number]) => {
     return;
   },
   userElements: [] as userType[]
@@ -30,7 +30,7 @@ export let UsersContext = React.createContext({
 const UsersContextProvider: React.FunctionComponent = props => {
   const initialData: userType[] = [];
   const [userElements, setUserElements] = React.useState(initialData);
-  const [focus, setFocusValue] = React.useState([] as number[]);
+  const [focus, setFocusValue] = React.useState([-1, -1] as [number, number]);
   const [filterElements, setFilterElementsValue] = useState({
     beekeeper: true,
     individual: true,
@@ -44,10 +44,12 @@ const UsersContextProvider: React.FunctionComponent = props => {
         isVisible: filterElements[userCategory[user.category]]
       }))
     );
+    // TODO: A bug to fix about miss deps of useState fn setUserElements but breaking everything if set
+    // eslint-disable-next-line
   }, [filterElements]);
 
   /* TS hack */
-  const setFocus: (value: number[]) => void = value => {
+  const setFocus: (value: [number, number]) => void = value => {
     setFocusValue(value);
   };
   const setFilter: (value: {

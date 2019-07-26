@@ -2,16 +2,16 @@
 
 exports[`AppBar component on shallow rendering should renders without crashing 1`] = `
 "<div className={[undefined]}>
-  <WithStyles(AppBar) position=\\"static\\" color=\\"primary\\">
-    <WithStyles(Toolbar)>
+  <WithStyles(ForwardRef(AppBar)) position=\\"static\\" color=\\"primary\\">
+    <WithStyles(ForwardRef(Toolbar))>
       <ForwardRef to=\\"/\\">
         <img className={[undefined]} src=\\"happyculteur-logo.png\\" alt=\\"Logo\\" />
       </ForwardRef>
       <div className={[undefined]} />
-      <WithStyles(Button) variant=\\"contained\\" color=\\"secondary\\" href=\\"https://join.happyculteur.co/\\" data-e2e=\\"SurveyButton\\">
+      <WithStyles(ForwardRef(Button)) variant=\\"contained\\" color=\\"secondary\\" href=\\"https://join.happyculteur.co/\\" data-e2e=\\"SurveyButton\\">
         Take the survey!
-      </WithStyles(Button)>
-    </WithStyles(Toolbar)>
-  </WithStyles(AppBar)>
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
 </div>"
 `;
