@@ -3,6 +3,7 @@ import Email from "@material-ui/icons/Email";
 import GpsFixed from "@material-ui/icons/GpsFixed";
 import PersonPin from "@material-ui/icons/PersonPin";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "../../";
 import space from "../../../../assests/space.svg";
 import { ISpace, spaceType, userCategory } from "../../../../types";
@@ -13,6 +14,7 @@ interface ICardSpaceOwnProps {
 }
 
 const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
+  const i18n = useTranslation();
   const {
     uuid,
     location,
@@ -29,7 +31,6 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
     primary: spaceType[type],
     uuid
   };
-  // TODO: Translation
   const email = {
     body:
       (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
@@ -46,16 +47,19 @@ const CardSpace: React.FunctionComponent<ICardSpaceOwnProps> = props => {
         process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
           "{{primary}}",
           `${user.primary} of ${owner.name}`
-        ).replace("{{category}}", userCategory[user.category])) ||
+        ).replace("{{category}}", i18n.t(userCategory[user.category]))) ||
       "",
     to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
   };
 
-  // TODO: Translation
   const renderContent = (className: string) => (
     <div className={className}>
-      <Typography variant="subtitle1">Size : {size}</Typography>
-      <Typography variant="subtitle1">Description : {description}</Typography>
+      <Typography variant="subtitle1">
+        {i18n.t("Size: {{size}}", { size })}
+      </Typography>
+      <Typography variant="subtitle1">
+        {i18n.t("Description: {{description}}", { description })}
+      </Typography>
     </div>
   );
   const renderActions = (className: string, trigger: IActionsTrigger) => (

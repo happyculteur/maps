@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./ThanksIcon.css";
 
 const useStyles = makeStyles(theme => ({
@@ -35,12 +36,13 @@ interface IThanksIcon {
 }
 
 const ThanksIcon: React.FunctionComponent<IThanksIcon> = props => {
+  const i18n = useTranslation();
   const classes = useStyles();
 
   return (
     <div className={classnames(classes.wrap, props.className)}>
       <div className={classes.square}>
-        <div className={classes.thanks}>Thanks</div>
+        <div className={classes.thanks}>{i18n.t("Thanks")}</div>
         <div className={classes.underline}>z</div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 import React, { ReactElement, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePrevious } from "../../hooks";
 import { userType } from "../../types";
 import { ScrollIcon } from "../ScrollIcon";
@@ -33,6 +34,7 @@ interface IInfiniteScrollProps {
 }
 
 const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
+  const i18n = useTranslation();
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const prevElements = usePrevious(props.elements);
@@ -73,7 +75,6 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
     }
   };
 
-  /* TODO: Translation */
   return (
     <div
       className={classnames(classes.InfiniteScroll, props.className)}
@@ -85,12 +86,13 @@ const InfiniteScroll: React.FunctionComponent<IInfiniteScrollProps> = props => {
         {error &&
           (props.errorElement || (
             <Typography variant="overline" className={classes.error}>
+              {/* Translation to be done once error message has been clearly defined */}
               {error}
             </Typography>
           ))}
         {isLoading &&
           (props.loaderElement || (
-            <Typography variant="overline">...Loading</Typography>
+            <Typography variant="overline">{i18n.t("...Loading")}</Typography>
           ))}
       </div>
     </div>

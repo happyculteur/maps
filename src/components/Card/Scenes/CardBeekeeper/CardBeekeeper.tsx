@@ -2,6 +2,7 @@ import { Button, Typography } from "@material-ui/core";
 import Email from "@material-ui/icons/Email";
 import GpsFixed from "@material-ui/icons/GpsFixed";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "../../";
 import beekeeper from "../../../../assests/beekeeper.svg";
 import { IBeekeeper, userCategory, userLevel } from "../../../../types";
@@ -14,6 +15,7 @@ interface ICardBeekeeperOwnProps {
 const CardBeekeeper: React.FunctionComponent<
   ICardBeekeeperOwnProps
 > = props => {
+  const i18n = useTranslation();
   const {
     uuid,
     primary,
@@ -31,7 +33,6 @@ const CardBeekeeper: React.FunctionComponent<
     primary,
     uuid
   };
-  // TODO: Translation
   const email = {
     body:
       (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
@@ -48,28 +49,31 @@ const CardBeekeeper: React.FunctionComponent<
         process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
           "{{primary}}",
           user.primary
-        ).replace("{{category}}", userCategory[user.category])) ||
+        ).replace("{{category}}", i18n.t(userCategory[user.category]))) ||
       "",
     to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
   };
 
-  // TODO: Translation
   const renderContent = (className: string) => (
     <div className={className}>
-      <Typography variant="subtitle1">Since: {seniority} years</Typography>
-      <Typography variant="subtitle1">Training</Typography>
+      <Typography variant="subtitle1">
+        {i18n.t("Since: {{seniority}} years", { seniority })}
+      </Typography>
+      <Typography variant="subtitle1">{i18n.t("Training")}</Typography>
       <ul>
         <li>
           <Typography variant="subtitle2">
-            Billed: {isBilled.toString()}
+            {i18n.t("Billed: {{value}}", { value: isBilled.toString() })}
           </Typography>
         </li>
         <li>
           <Typography variant="subtitle2">
-            Public:{" "}
+            {i18n.t("Public:")}
             {targets.map(
               (target, index) =>
-                `${userLevel[target]}${index < targets.length - 1 ? ", " : "."}`
+                `${i18n.t(userLevel[target])}${
+                  index < targets.length - 1 ? ", " : "."
+                }`
             )}
           </Typography>
         </li>

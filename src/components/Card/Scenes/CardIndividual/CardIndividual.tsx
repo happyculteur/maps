@@ -3,6 +3,7 @@ import Email from "@material-ui/icons/Email";
 import GpsFixed from "@material-ui/icons/GpsFixed";
 import Landscape from "@material-ui/icons/Landscape";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Card } from "../../";
 import individual from "../../../../assests/individual.svg";
 import { IIndividual, userCategory, userLevel } from "../../../../types";
@@ -15,6 +16,7 @@ interface ICardIndividualOwnProps {
 const CardIndividual: React.FunctionComponent<
   ICardIndividualOwnProps
 > = props => {
+  const i18n = useTranslation();
   const {
     uuid,
     primary,
@@ -33,7 +35,6 @@ const CardIndividual: React.FunctionComponent<
     primary,
     uuid
   };
-  // TODO: Translation
   const email = {
     body:
       (process.env.REACT_APP_HAPPYCULTEUR_EMAIL_BODY &&
@@ -50,16 +51,17 @@ const CardIndividual: React.FunctionComponent<
         process.env.REACT_APP_HAPPYCULTEUR_EMAIL_SUBJECT.replace(
           "{{primary}}",
           user.primary
-        ).replace("{{category}}", userCategory[user.category])) ||
+        ).replace("{{category}}", i18n.t(userCategory[user.category]))) ||
       "",
     to: process.env.REACT_APP_HAPPYCULTEUR_EMAIL || ""
   };
 
-  // TODO: Translation
   const renderContent = (className: string) => (
     <div className={className}>
       <Typography variant="subtitle1">
-        Experience: {userLevel[level]}
+        {i18n.t("Experience: {{experience}}", {
+          experience: i18n.t(userLevel[level])
+        })}
       </Typography>
     </div>
   );

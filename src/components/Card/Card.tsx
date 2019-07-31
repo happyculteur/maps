@@ -7,6 +7,7 @@ import {
 import { makeStyles } from "@material-ui/styles";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import badge from "../../assests/ispartner.svg";
 import { UsersContext } from "../../context/UsersContext";
 import { IInformation, userCategory, userInterest } from "../../types";
@@ -94,6 +95,7 @@ interface ICardOwnProps {
 }
 
 const Card: React.FunctionComponent<ICardOwnProps> = props => {
+  const i18n = useTranslation();
   const classes = useStyles();
   const { focus, setFocus } = React.useContext(UsersContext);
   const ref = useRef<HTMLDivElement>(null);
@@ -152,15 +154,13 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           <Typography variant="h5" className={classes.primary}>
             {props.user.primary}
           </Typography>
-          {/* TODO: Translation */}
           <Typography variant="body1">
-            {userCategory[props.user.category]}
+            {i18n.t(userCategory[props.user.category])}
           </Typography>
         </div>
         <div className={classes.avatar}>
           {props.isPartner && (
-            // TODO: Translation
-            <Avatar alt="Happyculteur partner!" src={badge} />
+            <Avatar alt={i18n.t("Happyculteur partner!")} src={badge} />
           )}
         </div>
       </div>
@@ -170,14 +170,12 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
           <>
             <div className={classes.content}>
               <Typography variant="subtitle1">
-                {/* TODO: Translation */}
-                <span>Interest:</span>
+                <span>{i18n.t("Interests:")}</span>
                 <ul>
                   {props.user.interests.map((interest, index) => (
                     <li key={index}>
                       <Typography variant="subtitle2">
-                        {/* TODO: Translation */}
-                        {userInterest[interest]}
+                        {i18n.t(userInterest[interest])}
                       </Typography>
                     </li>
                   ))}

@@ -1,6 +1,7 @@
 import { Avatar, Paper, Switch } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import beekeeperIcon from "../../assests/beekeeper.svg";
 import individualIcon from "../../assests/individual.svg";
 import spaceIcon from "../../assests/space.svg";
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Filter: React.FunctionComponent = () => {
+  const i18n = useTranslation();
   const classes = useStyles();
   const { setFilter } = React.useContext(UsersContext);
   const [beekeeper, setBeekeeperFilter] = useState(true);
@@ -47,8 +49,7 @@ const Filter: React.FunctionComponent = () => {
   return (
     <Paper className={classes.Filter}>
       <div className={classes.Switch}>
-        {/* TODO: Translation */}
-        <Avatar alt="Beekeeper" src={beekeeperIcon} />
+        <Avatar alt={i18n.t("Beekeeper")} src={beekeeperIcon} />
         <Switch
           checked={beekeeper}
           name="beekeeper"
@@ -57,8 +58,7 @@ const Filter: React.FunctionComponent = () => {
         />
       </div>
       <div className={classes.Switch}>
-        {/* TODO: Translation */}
-        <Avatar alt="Individual" src={individualIcon} />
+        <Avatar alt={i18n.t("Individual")} src={individualIcon} />
         <Switch
           checked={individual}
           name="individual"
@@ -67,8 +67,7 @@ const Filter: React.FunctionComponent = () => {
         />
       </div>
       <div className={classes.Switch}>
-        {/* TODO: Translation */}
-        <Avatar alt="Space" src={spaceIcon} />
+        <Avatar alt={i18n.t("Space")} src={spaceIcon} />
         <Switch
           checked={space}
           name="space"

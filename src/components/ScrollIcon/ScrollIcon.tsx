@@ -1,6 +1,7 @@
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 // Thanks to Geoffrey Crofte for the animation
 // From https://codepen.io/GeoffreyCrofte/pen/dYpObx
@@ -72,6 +73,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ScrollIcon: React.FunctionComponent = () => {
+  const i18n = useTranslation();
   const classes = useStyles();
 
   return (
@@ -80,8 +82,7 @@ const ScrollIcon: React.FunctionComponent = () => {
         <div className={classes.wheel} />
       </div>
       <Typography variant="overline" color="inherit">
-        {/* TODO: Translation */}
-        Scroll to load more
+        {i18n.t("Scroll to load more")}
       </Typography>
       <div className={classes.iconArrows} />
     </div>

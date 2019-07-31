@@ -3,6 +3,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "@reach/router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(theme => ({
   Footer: {
@@ -63,9 +64,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Footer: React.FunctionComponent = () => {
+  const i18n = useTranslation();
   const classes = useStyles();
 
-  /* TODO: Translation */
   return (
     <div className={classes.Footer}>
       <div>
@@ -74,7 +75,7 @@ const Footer: React.FunctionComponent = () => {
             className={classes.link}
             href={process.env.REACT_APP_HAPPYCULTEUR_LINK_COPYRIGHT}
           >
-            HAPPYCULTEUR © COPYRIGHT 2019. TOUS DROITS RESERVES
+            {i18n.t("Happyculteur © Copyright 2019. All rights reserved.")}
           </a>
         </Typography>
       </div>
@@ -84,14 +85,14 @@ const Footer: React.FunctionComponent = () => {
             className={classes.link}
             href={process.env.REACT_APP_HAPPYCULTEUR_LINK_LEGAL}
           >
-            MENTIONS LEGALES
+            {i18n.t("Legal notice")}
           </a>
         </Typography>
       </div>
       <div>
         <Typography variant="overline">
           <Link className={classes.link} to="thanks">
-            SPECIAL THANKS
+            {i18n.t("Special thanks")}
           </Link>
         </Typography>
       </div>
