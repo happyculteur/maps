@@ -31,6 +31,7 @@
     "@types/uuid": "3.4.5",
     "classnames": "2.2.6",
     "i18next": "17.0.6",
+    "commitizen": "4.0.3",
     "i18next-browser-languagedetector": "3.0.1",
     "leaflet": "1.5.1",
     "lodash": "4.17.15",
@@ -72,7 +73,8 @@
   "husky": {
     "hooks": {
       "post-checkout": "npm i && npm outdated",
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && npx git-cz --hook"
     }
   },
   "lint-staged": {
@@ -85,6 +87,7 @@
   "devDependencies": {
     "codacy-coverage": "3.4.0",
     "cypress": "3.4.1",
+    "cz-conventional-changelog": "3.0.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
     "husky": "3.0.2",
@@ -100,5 +103,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
