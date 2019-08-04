@@ -8,6 +8,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/happyculteur/maps/badge.svg)](https://snyk.io/test/github/happyculteur/maps)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![BCH compliance](https://bettercodehub.com/edge/badge/happyculteur/maps?branch=master)](https://bettercodehub.com/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
