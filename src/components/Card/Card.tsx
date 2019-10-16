@@ -8,7 +8,7 @@ import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
-import badge from "../../assests/badge.svg";
+import partnerBadge from "../../assests/partner-badge.svg";
 import { UsersContext } from "../../context/UsersContext";
 import { IInformation, userCategory, userInterest } from "../../types";
 
@@ -161,7 +161,7 @@ const Card: React.FunctionComponent<ICardOwnProps> = props => {
         <div className={classes.avatar}>
           {props.isPartner && (
             // TODO: Translation
-            <Avatar alt="Happyculteur partner!" src={badge} />
+            <Avatar alt="Happyculteur partner!" src={partnerBadge} />
           )}
         </div>
       </div>
